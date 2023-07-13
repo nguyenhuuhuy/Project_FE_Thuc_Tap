@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { Layout } from "./components/layout/Layout";
+import Home from "./page/Home";
+import HomeAdmin from "./admin/HomeAdmin"
+import Login from "./page/Login";
+import Register from "./page/Register";
+import Doctors from "./page/doctor/Doctors";
+import DoctorDetail from "./page/doctor/DoctorDetail";
+import HistoryOder from "./page/history/HistoryOder";
+import PrivateRoutes from "./utils/PrivateRoute";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route element={<PrivateRoutes/>}>
+              {/* nếu không có token thì quay về login luồng cho admin vs doctor */}
+            <Route path="/homeAdmin" element={<HomeAdmin/>} />
+            </Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          <Route path="/doctor" element={<Doctors />} />
+            <Route path="/doctorDetail" element={<DoctorDetail />} />
+            <Route path="/historyOder" element={<HistoryOder />} />
+          </Route>
+        </Routes>
     </div>
   );
 }
