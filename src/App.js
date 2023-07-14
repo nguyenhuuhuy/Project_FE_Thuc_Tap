@@ -2,30 +2,39 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import Home from "./page/Home";
-import HomeAdmin from "./admin/HomeAdmin"
+import HomeAdmin from "./admin/HomeAdmin";
+import PrivateLoginRouter from "./utils/PrivateLoginRoute";
 import Login from "./page/Login";
 import Register from "./page/Register";
 import Doctors from "./page/doctor/Doctors";
 import DoctorDetail from "./page/doctor/DoctorDetail";
 import HistoryOder from "./page/history/HistoryOder";
-import PrivateRoutes from "./utils/PrivateRoute";
+import PrivateRoutesAdmin from "./utils/PrivateRouteAdmin";
+import Err404 from "./page/err/Err";
+import Specialty from "./page/specialty/Specialty";
 function App() {
   return (
     <div className="App">
-        <Routes>
-          <Route element={<Layout />}>
-            <Route element={<PrivateRoutes/>}>
-              {/* nếu không có token thì quay về login luồng cho admin vs doctor */}
-            <Route path="/homeAdmin" element={<HomeAdmin/>} />
-            </Route>
-            <Route path="/" element={<Home />} />
+      <Routes>
+        <Route element={<Layout />}>
+          {/* luồng của admin */}
+          <Route element={<PrivateRoutesAdmin />}>
+            <Route path="/homeAdmin" element={<HomeAdmin />} />
+          </Route>
+          {/* luồng khi đăng nhập không được vào login register */}
+          <Route element={<PrivateLoginRouter />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-          <Route path="/doctor" element={<Doctors />} />
-            <Route path="/doctorDetail" element={<DoctorDetail />} />
-            <Route path="/historyOder" element={<HistoryOder />} />
           </Route>
-        </Routes>
+          {/* các luồng luôn được vào */}
+          <Route path="/" element={<Home />} />
+          <Route path="/doctor" element={<Doctors />} />
+          <Route path="/doctorDetail" element={<DoctorDetail />} />
+          <Route path="/historyOder" element={<HistoryOder />} />
+          <Route path="/specialty" element={<Specialty/>}/>
+          <Route path="/err" element={<Err404/>}/>
+        </Route>
+      </Routes>
     </div>
   );
 }

@@ -13,9 +13,7 @@ function Doctors() {
     }, []);
     let element = [];
     if (listDoctor == undefined) {
-        console.log(1);
     } else {
-        console.log(listDoctor);
         element = listDoctor.map((e, index) => {
             return (
                 <tr className="inner-box" key={index}>

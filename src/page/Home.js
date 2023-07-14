@@ -28,23 +28,18 @@ function Home() {
                 <div className="featured-block d-flex justify-content-center align-items-center">
                   <NavLink to={"/doctor"}>
                     <p className="featured-block-text">
-                      doctor <strong>information</strong>
+                      Doctor <strong>information</strong>
                     </p>
                   </NavLink>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                 <div className="featured-block d-flex justify-content-center align-items-center">
-                  <a href="donate.html" className="d-block">
-                    <img
-                      src="images/icons/heart.png"
-                      className="featured-block-image img-fluid"
-                      alt=""
-                    />
+                  <NavLink to={"/specialty"} className="d-block">
                     <p className="featured-block-text">
-                      <strong>Caring</strong> Earth
+                      Specialty <strong>information</strong> 
                     </p>
-                  </a>
+                  </NavLink>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">

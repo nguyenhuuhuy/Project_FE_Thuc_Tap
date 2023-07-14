@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../style/doctorDetail.css";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getListTimeByDoctorId, getTimeSlostById } from "../../service/TimeSlotsService";
-import { getDetailBookingsByTimeSlotId, oderBookings } from "../../service/bookingsService";
+import { getListTimeByDoctorId } from "../../service/TimeSlotsService";
+import { oderBookings } from "../../service/bookingsService";
 import authHeader from "../../service/auth-header";
 
 function DoctorDetail() {

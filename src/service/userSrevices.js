@@ -1,10 +1,8 @@
 import axios from "../utils/BaseAxios";
-import authHeader from "./auth-header";
+// import authHeader from "./auth-header";
 const users = "api/users";
 const getListUser =  () => {
-  return axios.get(`${users}`, {
-    headers: authHeader()
-  });
+  return axios.get(`${users}`);
 };
 
 
