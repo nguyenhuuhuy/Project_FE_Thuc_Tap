@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../style/history.css";
-import { getHistoryAccpetByUserId, getHistoryByUserId, getHistoryCancelByUserId } from "../../service/bookingsService";
+import { getHistoryAccpetByUserId, getHistoryByUserId, getHistoryCancelByUserId, putCancelByBookingId } from "../../service/bookingsService";
 import { set } from "react-hook-form";
 
 function HistoryOder() {
   const [listDataOderByUser, setListDataOderByUser] = useState([]);
   const [listDataCancelByUser, setListDataCancelByUser] = useState([]);
   const [listDataAcceptByUser, setListDataAcceptByUser] = useState([]);
-
+  const [status,setStatus] = useState([]);
   // function getHistoryData() {
   // }
   // useEffect(() => {
@@ -16,6 +16,57 @@ function HistoryOder() {
   let elementOder = [];
   let elementCancel = [];
   let elementAccept = [];
+  if (listDataOderByUser.length > 0) {
+    elementOder = listDataOderByUser.map((e, index) => {
+      return (
+        <tr className="inner-box" key={index}>
+          <td>
+            <div className="event-img">
+              <img src={e.user.avatar} alt="" />
+            </div>
+          </td>
+          <td>
+            <div className="event-wrap">
+              <h3>
+                <a href="#">{e.user.name}</a>
+              </h3>
+              <div className="meta">
+                <div className="organizers">
+                  <h6>{e.user.email}</h6>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div className="r-no">
+              <span>{e.isConfirm}</span>
+            </div>
+          </td>
+          <td>
+            <div className="r-no">
+              <span>{e.reason}</span>
+            </div>
+          </td>
+          <td>
+            <div className="primary-btn">
+              <button className="custom-btn btn-13" onClick={()=>handleCanCelBooking(e.id)}>Cancel</button>
+            </div>
+          </td>
+        </tr>
+      );
+    });
+  }
+  const handleCanCelBooking = (id)=>{
+    console.log(id);
+    putCancelByBookingId(id).then((res)=>{
+      if (res.data.message == "update_success") {
+        setStatus(res.data);
+        window.location.reload();
+      }
+    })
+  }
+
+
   if (listDataCancelByUser.length>0) {
     elementCancel = listDataCancelByUser.map((e,index)=>{
       return (
@@ -51,46 +102,7 @@ function HistoryOder() {
       );
     })
   }
-  if (listDataOderByUser.length > 0) {
-    elementOder = listDataOderByUser.map((e, index) => {
-      return (
-        <tr className="inner-box" key={index}>
-          <td>
-            <div className="event-img">
-              <img src={e.user.avatar} alt="" />
-            </div>
-          </td>
-          <td>
-            <div className="event-wrap">
-              <h3>
-                <a href="#">{e.user.name}</a>
-              </h3>
-              <div className="meta">
-                <div className="organizers">
-                  <h6>{e.user.email}</h6>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.isConfirm}</span>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.reason}</span>
-            </div>
-          </td>
-          <td>
-            <div className="primary-btn">
-              <button className="custom-btn btn-13">Cancel</button>
-            </div>
-          </td>
-        </tr>
-      );
-    });
-  } 
+   
   if (listDataAcceptByUser.length > 0) {
     elementAccept = listDataAcceptByUser.map((e, index) => {
       return (
@@ -149,6 +161,7 @@ function HistoryOder() {
   return (
     <>
       <div className="event-schedule-area-two bg-color pad100">
+        <h2 style={{ color: "red", textAlign: 'center' }}>{status.message}</h2>
         <div className="container">
           <div className="row">
             <div className="col-lg-12" style={{display:'flex',justifyContent:'center'}}>

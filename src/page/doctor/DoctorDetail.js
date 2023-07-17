@@ -34,6 +34,7 @@ function DoctorDetail() {
       navigate("/login");
     }
     // getTimeSlostById(timesId).then((res)=>setDetailOderTime(res.data))
+    
     setTimeSlotId(timesId);
     setActive(!active);
   };
@@ -43,10 +44,10 @@ function DoctorDetail() {
   };
   const addNewBooking = (e) => {
     e.preventDefault();
-    console.log(bookings);
-    console.log(timesSlotId);
     oderBookings(timesSlotId, bookings)
-      .then((res) => setStatus(res.data))
+      .then((res) => setStatus(res.data)).then(()=>{
+        getListdataTimeSlotOder();
+      })
       .catch((err) => {
         console.log(err);
       });

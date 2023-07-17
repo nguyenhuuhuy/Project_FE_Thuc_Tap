@@ -12,6 +12,8 @@ import HistoryOder from "./page/history/HistoryOder";
 import PrivateRoutesAdmin from "./utils/PrivateRouteAdmin";
 import Err404 from "./page/err/Err";
 import Specialty from "./page/specialty/Specialty";
+import PrivateRouteDoctor from "./utils/PrivateRouteDoctor";
+import DoctorHome from "./doctorManage/DoctorHome";
 function App() {
   return (
     <div className="App">
@@ -25,6 +27,9 @@ function App() {
           <Route element={<PrivateLoginRouter />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+          </Route>
+          <Route element={<PrivateRouteDoctor/>}>
+            <Route path="/homeDoctor" element={<DoctorHome/>}/>
           </Route>
           {/* các luồng luôn được vào */}
           <Route path="/" element={<Home />} />

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getListUser } from "../service/userSrevices";
 import { postUsers } from "../service/authService";
 
 function Register() {
   let navigate = useNavigate();
-  const [listUsers, setListUsers] = useState([]);
   const [check, setCheck] = useState({
     message: "",
   });
@@ -23,13 +21,6 @@ function Register() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  function getDataListUser() {
-    getListUser().then((res) => {
-      setListUsers(res.data);
-      console.log(res.data);
-    });
-  }
-
   const onSubmit = async (e) => {
     e.preventDefault();
     let postNewUser = {
@@ -46,39 +37,23 @@ function Register() {
       });
       user.repeatPassword = "";
       user.password = "";
-    }
-    const checkEmail = listUsers.filter((e) => e.email == postNewUser.email);
-    const checkUserName = listUsers.filter((e) => e.username == postNewUser.username);
-    if (checkEmail == "" && checkUserName == "") {
-      navigate("/login");
     } else {
-      if (checkUserName != "") {
-        user.username = "";
-        setCheck({
-          message: "User Name already exists!!!",
-        });
-      } else if (checkEmail != "") {
-        user.email = "";
-        
-        setCheck({
-          message: "Email already exists!!!",
-        });
-      }
-    }
-    // else {
-    //   postUsers(postNewUser).then((res) => setCheck(res.data));
-    //   if (check.message == "User_Name_already_exists") {
-    //
-    //   } else if (check.message == "Email already exists") {
-    //
-    //   } else {
-    //   }
-    // }
-  };
+      postUsers(postNewUser).then((res) =>{
+         if (res.data.message == "User_Name_already_exists") {
+          setCheck(res.data)
+          user.username = "";
+        } else if (res.data.message == "Email_already_exists") {
+          setCheck(res.data)
+          user.email = "";
+        } else if (res.data.message == "create_success") {
+          navigate("/login");
+        }
+      }).catch((err)=>{
+        console.log(err);
+      });
+    };
 
-  useEffect(() => {
-    getDataListUser();
-  }, []);
+  };
 
   return (
     <>

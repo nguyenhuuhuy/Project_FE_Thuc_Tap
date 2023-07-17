@@ -100,6 +100,11 @@ function Header() {
                 History
               </NavLink>
             </li>
+            <li className="nav-item active">
+              <NavLink className="nav-link" to={"/homeDoctor"} style={navLinkStyle}>
+                DoctorManage
+              </NavLink>
+            </li>
             {elementAdmin}
           </ul>
           <form className="form-inline my-2 my-lg-0" style={{ marginRight: "400px" }}>

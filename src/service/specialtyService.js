@@ -5,4 +5,4 @@ const getListSpecialty = async () => {
   return await axios.get(`${listSpecialty}`);
 };
 
-export default { getListSpecialty };
+export default { getListSpecialty};

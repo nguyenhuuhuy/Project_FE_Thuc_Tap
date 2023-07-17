@@ -104,9 +104,7 @@ function Doctors() {
                     </div>
                     {/* /row end*/}
                 </div>
-            </div>
-
-            
+            </div>    
         </>
     )
 }
