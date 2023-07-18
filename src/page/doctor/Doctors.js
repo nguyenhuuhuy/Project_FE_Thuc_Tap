@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getListDoctor } from '../../service/doctorService';
+import { getCheckListDoctor, getListDoctor } from '../../service/doctorService';
 import "../../style/doctors.css";
 function Doctors() {
     const navigate = useNavigate();
     const [listDoctor, setListDoctor] = useState();
     function getDataListDoctor() {
-        getListDoctor().then((res) => setListDoctor(res.data))
+        getCheckListDoctor().then((res) => setListDoctor(res.data))
     }
     useEffect(() => {
         getDataListDoctor();

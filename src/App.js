@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import Home from "./page/Home";
-import HomeAdmin from "./admin/HomeAdmin";
+import SpecialtyAdmin from "./admin/SpecialtyAdmin";
 import PrivateLoginRouter from "./utils/PrivateLoginRoute";
 import Login from "./page/Login";
 import Register from "./page/Register";
@@ -14,6 +14,8 @@ import Err404 from "./page/err/Err";
 import Specialty from "./page/specialty/Specialty";
 import PrivateRouteDoctor from "./utils/PrivateRouteDoctor";
 import DoctorHome from "./doctorManage/DoctorHome";
+import CreateDoctor from "./page/doctor/Create";
+import DoctorAdmin from "./admin/DoctorAdmin";
 function App() {
   return (
     <div className="App">
@@ -21,7 +23,8 @@ function App() {
         <Route element={<Layout />}>
           {/* luồng của admin */}
           <Route element={<PrivateRoutesAdmin />}>
-            <Route path="/homeAdmin" element={<HomeAdmin />} />
+            <Route path="/specialtyAdmin" element={<SpecialtyAdmin />} />
+            <Route path="/doctorAdmin" element={<DoctorAdmin/>}/>
           </Route>
           {/* luồng khi đăng nhập không được vào login register */}
           <Route element={<PrivateLoginRouter />}>
@@ -33,6 +36,7 @@ function App() {
           </Route>
           {/* các luồng luôn được vào */}
           <Route path="/" element={<Home />} />
+          <Route path="/createDoctor" element={<CreateDoctor/>}/>
           <Route path="/doctor" element={<Doctors />} />
           <Route path="/doctorDetail" element={<DoctorDetail />} />
           <Route path="/historyOder" element={<HistoryOder />} />

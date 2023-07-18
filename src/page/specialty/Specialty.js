@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import "../../style/specialty.css";
-import getListSpecialty from "../../service/specialtyService";
+// import getListSpecialty from "../../service/specialtyService";
 function Specialty() {
-    const [listData,setListData] = useState([]);
-    function SpecialtyService() {
-        getListSpecialty()
-    }
+    // const [listData,setListData] = useState([]);
+    // function SpecialtyService() {
+    //     getListSpecialty().then((res)=>console.log(res.data))
+    // }
+    // useEffect(()=>{
+    //     SpecialtyService()
+    // },[]);
+
   return (
     <>
           <section>

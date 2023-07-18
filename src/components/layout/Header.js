@@ -24,9 +24,39 @@ function Header() {
       elementAdmin = (
         <>
           <li className="nav-item active">
-            <NavLink className="nav-link" to={"/homeAdmin"} style={navLinkStyle}>
+            <NavLink className="nav-link" to={"/specialtyAdmin"} style={navLinkStyle}>
               ADMIN MANAGE
             </NavLink>
+          </li>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to={"/doctorAdmin"} style={navLinkStyle}>
+              DOCTOR MANAGE
+            </NavLink>
+          </li>
+        </>
+      );
+    } else if(role[0].authority == "DOCTOR"){
+      elementAdmin = (
+        <>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to={"/homeDoctor"} style={navLinkStyle}>
+              DoctorManage
+            </NavLink>
+          </li>
+        </>
+      );
+    } else {
+      elementAdmin = (
+        <>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to={"/historyOder"} style={navLinkStyle}>
+              History
+            </NavLink>
+          </li>
+          <li className="nav-item active">
+            <button type="button" class=" nav-link btn btn-info btn-lg " onClick={()=>navigate('/createDoctor')}>
+              want to be a doctor
+            </button>
           </li>
         </>
       );
@@ -95,19 +125,9 @@ function Header() {
                 Home
               </NavLink>
             </li>
-            <li className="nav-item active">
-              <NavLink className="nav-link" to={"/historyOder"} style={navLinkStyle}>
-                History
-              </NavLink>
-            </li>
-            <li className="nav-item active">
-              <NavLink className="nav-link" to={"/homeDoctor"} style={navLinkStyle}>
-                DoctorManage
-              </NavLink>
-            </li>
             {elementAdmin}
           </ul>
-          <form className="form-inline my-2 my-lg-0" style={{ marginRight: "400px" }}>
+          {/* <form className="form-inline my-2 my-lg-0" style={{ marginRight: "400px" }}>
             <input
               className="form-control mr-sm-2"
               type="search"
@@ -117,7 +137,7 @@ function Header() {
             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
               Search
             </button>
-          </form>
+          </form> */}
           <ul className="navbar-nav" style={{ marginRight: "200px" }}>
             {element}
           </ul>

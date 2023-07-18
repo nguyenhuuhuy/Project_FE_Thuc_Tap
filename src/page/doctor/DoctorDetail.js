@@ -25,7 +25,13 @@ function DoctorDetail() {
 
   var id = new Number(location.state.id);
   function getListdataTimeSlotOder() {
-    getListTimeByDoctorId(id).then((res) => setListTimeSlotOder(res.data));
+    getListTimeByDoctorId(id).then((res) => {
+      if (res.data.message == "not_found") {
+        alert("list booking none")
+      } else{
+        setListTimeSlotOder(res.data);
+      }
+    });
   }
 
   const handleDetail = (timesId) => {
@@ -110,19 +116,19 @@ function DoctorDetail() {
                   <div className="col-md-6">
                     <div className="media">
                       <label>Name</label>
-                      <p>{location.state.name}</p>
+                      <p style={{ color: "black" }}>{location.state.name}</p>
                     </div>
                     <div className="media">
                       <label>E-mail</label>
-                      <p>{location.state.email}</p>
+                      <p style={{ color: "black" }}>{location.state.email}</p>
                     </div>
                     <div className="media">
                       <label>Roles</label>
-                      <p>{location.state.roles}</p>
+                      <p style={{ color: "black" }}>{location.state.roles}</p>
                     </div>
                     <div className="media">
                       <label>Specialty</label>
-                      <p>{location.state.specialty}</p>
+                      <p style={{ color: "black" }}>{location.state.specialty}</p>
                     </div>
                   </div>
                 </div>
