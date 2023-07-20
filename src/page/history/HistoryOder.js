@@ -8,11 +8,8 @@ function HistoryOder() {
   const [listDataCancelByUser, setListDataCancelByUser] = useState([]);
   const [listDataAcceptByUser, setListDataAcceptByUser] = useState([]);
   const [status,setStatus] = useState([]);
-  // function getHistoryData() {
-  // }
-  // useEffect(() => {
-  //   getHistoryData();
-  // }, []);
+
+
   let elementOder = [];
   let elementCancel = [];
   let elementAccept = [];
@@ -57,7 +54,6 @@ function HistoryOder() {
     });
   }
   const handleCanCelBooking = (id)=>{
-    console.log(id);
     putCancelByBookingId(id).then((res)=>{
       if (res.data.message == "update_success") {
         setStatus(res.data);
@@ -153,7 +149,6 @@ function HistoryOder() {
   }
   const handleAccept = () =>{
     getHistoryAccpetByUserId().then((res)=>setListDataAcceptByUser(res.data));
-    console.log(listDataAcceptByUser);
   }
   const handleAcceptCancel = () =>{
     setListDataAcceptByUser([]);

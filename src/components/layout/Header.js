@@ -25,12 +25,17 @@ function Header() {
         <>
           <li className="nav-item active">
             <NavLink className="nav-link" to={"/specialtyAdmin"} style={navLinkStyle}>
-              ADMIN MANAGE
+              SPECIALTY MANAGE
             </NavLink>
           </li>
           <li className="nav-item active">
             <NavLink className="nav-link" to={"/doctorAdmin"} style={navLinkStyle}>
               DOCTOR MANAGE
+            </NavLink>
+          </li>
+          <li className="nav-item active">
+            <NavLink className="nav-link" to={"/userAdmin"} style={navLinkStyle}>
+              USER MANAGE
             </NavLink>
           </li>
         </>

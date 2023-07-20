@@ -73,7 +73,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <section className="section-padding section-bg" id="section_2">
+        {/* <section className="section-padding section-bg" id="section_2">
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-12 mb-5 mb-lg-0">
@@ -853,7 +853,7 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
     </>
   );

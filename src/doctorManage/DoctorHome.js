@@ -79,7 +79,6 @@ const handleOpen = () => {
   const handdleListTimes = (id) => {
     getListOderTimesByDoctorId(id)
       .then((res) => {
-        console.log(res.data);
         if (res.data.message == "not_found") {
             alert("No list booking !!!")
             navigate("/homeDoctor");
@@ -203,14 +202,14 @@ const handleOpen = () => {
                         </div>
                       </li>
                       <li>
-                        <div>
+                        <div style={{display:'flex'}}>
                           {e.isConfirm == "ACCEPT" ? (
                             <></>
                           ) : (
                             <>
                               <button
                                 type="submit"
-                                class="btn btn-primary btn-lg"
+                                class="btn btn-success btn-lg"
                                 onClick={() => successOder(e.id)}
                               >
                                 Confirm
@@ -222,6 +221,14 @@ const handleOpen = () => {
                                 onClick={() => accessDenied(e.id, e.timeSlot.doctor.id)}
                               >
                                 Cancel
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-primary btn-lg"
+                                style={{ marginLeft: "10px" }}
+                                onClick={close}
+                              >
+                                Close
                               </button>
                             </>
                           )}

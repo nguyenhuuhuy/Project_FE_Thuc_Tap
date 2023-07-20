@@ -16,6 +16,7 @@ import PrivateRouteDoctor from "./utils/PrivateRouteDoctor";
 import DoctorHome from "./doctorManage/DoctorHome";
 import CreateDoctor from "./page/doctor/Create";
 import DoctorAdmin from "./admin/DoctorAdmin";
+import UsersAdmin from "./admin/UsersAdmin";
 function App() {
   return (
     <div className="App">
@@ -25,6 +26,7 @@ function App() {
           <Route element={<PrivateRoutesAdmin />}>
             <Route path="/specialtyAdmin" element={<SpecialtyAdmin />} />
             <Route path="/doctorAdmin" element={<DoctorAdmin/>}/>
+            <Route path="/userAdmin" element={<UsersAdmin/>} />
           </Route>
           {/* luồng khi đăng nhập không được vào login register */}
           <Route element={<PrivateLoginRouter />}>
