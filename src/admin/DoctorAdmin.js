@@ -100,13 +100,14 @@ function DoctorAdmin() {
       setDetailDoctorById(res.data);
     })
   }
+  console.log(detailDoctorById);
   let rederDetailDoctor = "";
   if (detailDoctorById == undefined) {
       rederDetailDoctor = "";
   }else {
     rederDetailDoctor = (
       <>
-        <div className="container" style={{marginTop:'5%'}}>
+        <div className="container" style={{ marginTop: "5%" }}>
           <div className="team-single">
             <div className="row">
               <div className="col-lg-4 col-md-5 xs-margin-30px-bottom">
@@ -151,6 +152,17 @@ function DoctorAdmin() {
                           </div>
                           <div className="col-md-7 col-7">
                             <h6>{detailDoctorById.specialty.name}</h6>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="row">
+                          <div className="col-md-5 col-5">
+                            <i className="fa-solid fa-user text-orange"></i>
+                            <strong className="margin-10px-left text-orange">ROLE:</strong>
+                          </div>
+                          <div className="col-md-7 col-7">
+                            <h6>{detailDoctorById.user.roles[0].name}</h6>
                           </div>
                         </div>
                       </li>

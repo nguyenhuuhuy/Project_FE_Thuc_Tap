@@ -43,7 +43,7 @@ function Create() {
         }
     })
    }
-//   console.log(createNewDoctor);
+
   return (
     <>
       <div className="col-12">

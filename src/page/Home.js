@@ -3,18 +3,18 @@ import "../style/home.css";
 import "../style/bootstrapIcon.css";
 import { NavLink } from "react-router-dom";
 import authHeader from "../service/auth-header";
+// import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   useEffect(() => {
     authHeader();
   }, []); 
-  // let role = JSON.parse(sessionStorage.getItem('Role_Key'));
-  // console.log(role[0].authority);
-  // let role = JSON.parse(sessionStorage.getItem('Role_Key'));
-  // role.map((e) => {
-  //   console.log(e.authority);
-  // })
 
+  const booking = ()=>{
+    navigate("/create/booking");
+  }
   return (
     <>
       <main>
@@ -37,14 +37,14 @@ function Home() {
                 <div className="featured-block d-flex justify-content-center align-items-center">
                   <NavLink to={"/specialty"} className="d-block">
                     <p className="featured-block-text">
-                      Specialty <strong>information</strong> 
+                      Specialty <strong>information</strong>
                     </p>
                   </NavLink>
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-4">
                 <div className="featured-block d-flex justify-content-center align-items-center">
-                  <a href="donate.html" className="d-block">
+                  <a href="/" className="d-block">
                     <img
                       src="images/icons/receive.png"
                       className="featured-block-image img-fluid"
@@ -58,7 +58,7 @@ function Home() {
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
                 <div className="featured-block d-flex justify-content-center align-items-center">
-                  <a href="donate.html" className="d-block">
+                  <a href="/" className="d-block">
                     <img
                       src="images/icons/scholarship.png"
                       className="featured-block-image img-fluid"
@@ -73,6 +73,9 @@ function Home() {
             </div>
           </div>
         </section>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onClick={booking}>
+          Booking
+        </button>
         {/* <section className="section-padding section-bg" id="section_2">
           <div className="container">
             <div className="row">

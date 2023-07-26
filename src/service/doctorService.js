@@ -1,9 +1,10 @@
 import axios from "../utils/BaseAxios";
 import authHeader from "./auth-header";
 const doctors = "api/doctors";
+const listDoctorBySpecialty = "doctors/listDoctorBySpecialtyId";
 const checkDoctor = "doctors/status";
-const detailDoctor = "doctors/detail/doctor";
-const detailDoctorById = "doctors/detail/doctor";
+const detailDoctor = "doctors/detail";
+const detailDoctorById = "doctors/detail";
 const createDoctor = "doctors";
 const activeDoctor = "doctors/approve/doctor";
 const blockDoctor = "doctors/block/doctor";
@@ -11,6 +12,11 @@ const searchDoctor = "doctors/search/doctor"
 const getListDoctor = () => {
   return axios.get(`${doctors}`);
 };
+const getListDoctorBySpecialtyId = async (id) =>{
+  return await axios.get(`${listDoctorBySpecialty}/${id}`, {
+    headers: authHeader(),
+  });
+}
 const getCheckListDoctor = () => {
   return axios.get(`${checkDoctor}`, {
     headers: authHeader(),
@@ -49,6 +55,7 @@ const putBlockDoctor = (block) => {
 };
 export {
   getListDoctor,
+  getListDoctorBySpecialtyId,
   getCheckListDoctor,
   getDetailDoctor,
   getDetailDoctorById,

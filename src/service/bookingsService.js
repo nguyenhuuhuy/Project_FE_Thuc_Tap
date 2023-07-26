@@ -2,11 +2,10 @@ import axios from "../utils/BaseAxios";
 import authHeader from "./auth-header";
 const bookings = "bookings";
 const successBooking = "bookings/success/booking/oder/timeSlot";
-const cancelBooking = "bookings/cancel/booking/oder/timeSlot"
+const cancelBooking = "bookings/cancel/booking/oder/timeSlot";
 const detailBookingsByTimeSlotId = "bookings/detail/userBookingByTimeSlotId";
 const detailHistoryByUserId = "api/list/oderByUserId";
-const detailHistoryCancelByUserID = "api/list/cancelByUserId";
-const detailHistoryAcceptByUserID = "api/list/acceptByUserId";
+
 const cancelBookingById = "api/cancel/booking/user/timeslot";
 const getListBookings = () => {
   return axios.get(`${bookings}`, {
@@ -18,8 +17,8 @@ const getDetailBookingsByTimeSlotId = (id) => {
     headers: authHeader(),
   });
 };
-const oderBookings = (id, bookingDto) => {
-  return axios.post(`${bookings}/${id}`, bookingDto, {
+const oderBookings = async (id, bookingDto) => {
+  return await axios.post(`${bookings}/${id}`, bookingDto, {
     headers: authHeader(),
   });
 };
@@ -48,21 +47,9 @@ const getHistoryByUserId = async () => {
   });
 };
 
-const getHistoryCancelByUserId = async () => {
-  return await axios.get(`${detailHistoryCancelByUserID}`, {
-    headers: authHeader(),
-  });
-};
-const getHistoryAccpetByUserId = async () => {
-  return await axios.get(`${detailHistoryAcceptByUserID}`, {
-    headers: authHeader(),
-  });
-};
 export {
   getListBookings,
   getDetailBookingsByTimeSlotId,
-  getHistoryCancelByUserId,
-  getHistoryAccpetByUserId,
   getHistoryByUserId,
   oderBookings,
   putCancelByBookingId,

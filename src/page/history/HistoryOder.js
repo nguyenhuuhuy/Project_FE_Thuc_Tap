@@ -1,293 +1,198 @@
 import React, { useEffect, useState } from "react";
 import "../../style/history.css";
-import { getHistoryAccpetByUserId, getHistoryByUserId, getHistoryCancelByUserId, putCancelByBookingId } from "../../service/bookingsService";
+import {
+  getHistoryAccpetByUserId,
+  getHistoryByUserId,
+  getHistoryCancelByUserId,
+  putCancelByBookingId,
+} from "../../service/bookingsService";
 import { set } from "react-hook-form";
 
 function HistoryOder() {
-  const [listDataOderByUser, setListDataOderByUser] = useState([]);
-  const [listDataCancelByUser, setListDataCancelByUser] = useState([]);
-  const [listDataAcceptByUser, setListDataAcceptByUser] = useState([]);
-  const [status,setStatus] = useState([]);
+  const [active, setActive] = useState();
+  const [listHistory, setListHistory] = useState();
+  const [listRender, setListRender] = useState();
+  function getListHistoryData() {
+    getHistoryByUserId().then((res) => {
+      setListHistory(res.data);
+    });
+  }
+  useEffect(() => {
+    getListHistoryData();
+  }, []);
 
+  const handleChangeList = (e) => {
+    let check = e.target.id;
+    setActive(check);
+    if (e.target.id == "all") {
+      setListRender(listHistory);
+    } else {
+      const element = listHistory.filter((h) => h.isConfirm == e.target.id);
+      setListRender(element);
+    }
+  };
 
-  let elementOder = [];
-  let elementCancel = [];
-  let elementAccept = [];
-  if (listDataOderByUser.length > 0) {
-    elementOder = listDataOderByUser.map((e, index) => {
+  let renderList = [];
+  let renderListHome = [];
+  if (listRender == undefined) {
+    renderList = listHistory;
+  } else if (listRender.length > 0) {
+    renderList = listRender;
+    renderListHome = renderList.map((e, index) => {
       return (
-        <tr className="inner-box" key={index}>
+        <tr key={index}>
           <td>
-            <div className="event-img">
-              <img src={e.user.avatar} alt="" />
-            </div>
+            <img src={e.user.avatar} alt="" style={{ width: "100px", height: "100px" }} />
+            <span className="user-subhead">{e.user.name}</span>
+          </td>
+          <td>{e.date_book}</td>
+          <td>{e.timeSlot.times}</td>
+          <td className="text-center">
+            <span className="label label-default">{e.isConfirm}</span>
           </td>
           <td>
-            <div className="event-wrap">
-              <h3>
-                <a href="#">{e.user.name}</a>
-              </h3>
-              <div className="meta">
-                <div className="organizers">
-                  <h6>{e.user.email}</h6>
-                </div>
-              </div>
-            </div>
+            <h6>{e.reason}</h6>
           </td>
           <td>
-            <div className="r-no">
-              <span>{e.isConfirm}</span>
-            </div>
+            <h6>{e.timeSlot.doctor.user.name}</h6>
           </td>
           <td>
-            <div className="r-no">
-              <span>{e.reason}</span>
-            </div>
+            <h6>{e.timeSlot.doctor.specialty.name}</h6>
           </td>
-          <td>
-            <div className="primary-btn">
-              <button className="custom-btn btn-13" onClick={()=>handleCanCelBooking(e.id)}>Cancel</button>
-            </div>
+          <td style={{ width: "20%" }}>
+            {e.isConfirm == "LOADING" ? (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleCancelBooking(e.id)}
+                >
+                  cancel
+                </button>
+              </>
+            ) : (
+              <></>
+            )}
           </td>
         </tr>
       );
     });
   }
-  const handleCanCelBooking = (id)=>{
-    putCancelByBookingId(id).then((res)=>{
+  const handleCancelBooking = (id) => {
+    putCancelByBookingId(id).then((res) => {
       if (res.data.message == "update_success") {
-        setStatus(res.data);
-        window.location.reload();
+        alert("cancel successfully !!!");
+      window.location.reload();
       }
-    })
-  }
+    });
+  };
 
 
-  if (listDataCancelByUser.length>0) {
-    elementCancel = listDataCancelByUser.map((e,index)=>{
-      return (
-        <tr className="inner-box" key={index}>
-          <td>
-            <div className="event-img">
-              <img src={e.user.avatar} alt="" />
-            </div>
-          </td>
-          <td>
-            <div className="event-wrap">
-              <h3>
-                <a href="#">{e.user.name}</a>
-              </h3>
-              <div className="meta">
-                <div className="organizers">
-                  <h6>{e.user.email}</h6>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.isConfirm}</span>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.reason}</span>
-            </div>
-          </td>
-        </tr>
-      );
-    })
-  }
-   
-  if (listDataAcceptByUser.length > 0) {
-    elementAccept = listDataAcceptByUser.map((e, index) => {
-      return (
-        <tr className="inner-box" key={index}>
-          <td>
-            <div className="event-img">
-              <img src={e.user.avatar} alt="" />
-            </div>
-          </td>
-          <td>
-            <div className="event-wrap">
-              <h3>
-                <a href="#">{e.user.name}</a>
-              </h3>
-              <div className="meta">
-                <div className="organizers">
-                  <h6>{e.user.email}</h6>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.isConfirm}</span>
-            </div>
-          </td>
-          <td>
-            <div className="r-no">
-              <span>{e.reason}</span>
-            </div>
-          </td>
-        </tr>
-      );
-    })
-  }
-  const handleLoading = () =>{
-    getHistoryByUserId().then((res) => setListDataOderByUser(res.data));
-  }
-  const handleCloseLoading = () =>{
-    setListDataOderByUser([]);
-  }
+  console.log(renderList);
 
-  const handleCanCel = ()=>{
-    getHistoryCancelByUserId().then((res) => setListDataCancelByUser(res.data));
-  }
-  const handleCloseCancel = () =>{
-    setListDataCancelByUser([]);
-  }
-  const handleAccept = () =>{
-    getHistoryAccpetByUserId().then((res)=>setListDataAcceptByUser(res.data));
-  }
-  const handleAcceptCancel = () =>{
-    setListDataAcceptByUser([]);
-  }
+
   return (
     <>
-      <div className="event-schedule-area-two bg-color pad100">
-        <h2 style={{ color: "red", textAlign: 'center' }}>{status.message}</h2>
+      <div className="menu-box">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12" style={{display:'flex',justifyContent:'center'}}>
-              <div className="section-title text-center">
-                <button className="btn btn-primary" onClick={handleLoading}>
-                  <div className="title-text" style={{ fontSize: "40px" }}>SHOW LIST ODER</div>
-                </button>
-                
-              </div>
-              <div className="section-title text-center" style={{marginLeft:'10px'}}>
-                <button className="btn btn-primary" onClick={handleCloseLoading}>
-                  <div className="title-text" style={{ fontSize: "40px"}}>CLOSE</div>
-                </button>
+            <div className="col-lg-12">
+              <div className="heading-title text-center">
+                <h2>History</h2>
               </div>
             </div>
-            {/* /.col end*/}
           </div>
-          {/* row end*/}
           <div className="row">
             <div className="col-lg-12">
-              <div className="tab-content" id="myTabContent">
-                <div className="tab-pane fade active show" id="home" role="tabpanel">
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead style={{ textAlign: "center" }}>
-                        <tr>
-                          <th>Avatar</th>
-                          <th>Name</th>
-                          <th>Status</th>
-                          <th>Content</th>
-                          <th>Edit</th>
-                        </tr>
-                      </thead>
-                      <tbody style={{ textAlign: "center" }}>{elementOder}</tbody>
-                    </table>
+              <div className="special-menu text-center">
+                <div className="button-group filter-button-group">
+                  <button
+                    data-filter="*"
+                    id="all"
+                    onClick={handleChangeList}
+                    className={active == "all" ? "active" : "isActive"}
+                  >
+                    All
+                  </button>
+                  <button
+                    data-filter=".LOADING"
+                    id="LOADING"
+                    onClick={handleChangeList}
+                    className={active == "LOADING" ? "active" : "isActive"}
+                  >
+                    LOADING
+                  </button>
+                  <button
+                    data-filter=".ACCEPT"
+                    id="ACCEPT"
+                    onClick={handleChangeList}
+                    className={active == "ACCEPT" ? "active" : "isActive"}
+                  >
+                    ACCEPT
+                  </button>
+                  <button
+                    data-filter=".NOT_ACCEPT"
+                    id="NOT_ACCEPT"
+                    onClick={handleChangeList}
+                    className={active == "NOT_ACCEPT" ? "active" : "isActive"}
+                  >
+                    NOT_ACCEPT
+                  </button>
+                  <button
+                    data-filter=".CANCEL"
+                    id="CANCEL"
+                    onClick={handleChangeList}
+                    className={active == "CANCEL" ? "active" : "isActive"}
+                  >
+                    CANCEL
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row special-list">
+            <div className="container bootstrap snippets bootdey">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="main-box no-header clearfix">
+                    <div className="main-box-body clearfix">
+                      <div className="table-responsive">
+                        <table className="table user-list">
+                          <thead style={{ textAlign: "center" }}>
+                            <tr>
+                              <th>
+                                <span>User</span>
+                              </th>
+                              <th>
+                                <span>Created</span>
+                              </th>
+                              <th>
+                                <span>time</span>
+                              </th>
+                              <th className="text-center">
+                                <span>Status</span>
+                              </th>
+                              <th>
+                                <span>content</span>
+                              </th>
+                              <th>
+                                <span>doctor</span>
+                              </th>
+                              <th>
+                                <span>cpeccialty</span>
+                              </th>
+                              <th>&nbsp;</th>
+                            </tr>
+                          </thead>
+                          <tbody style={{ textAlign: "center" }}>{renderListHome}</tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            {/* /col end*/}
           </div>
-          {/* /row end*/}
-        </div>
-      </div>
-
-      <div className="event-schedule-area-two bg-color pad100">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12" style={{ display: 'flex', justifyContent: 'center' }}>
-              <div className="section-title text-center">
-                <button className="btn btn-primary" onClick={handleCanCel}>
-                  <div className="title-text" style={{ fontSize: "40px" }}>SHOW LIST CANCEL </div>
-                </button>
-
-              </div>
-              <div className="section-title text-center" style={{ marginLeft: '10px' }}>
-                <button className="btn btn-primary" onClick={handleCloseCancel}>
-                  <div className="title-text" style={{ fontSize: "40px" }}>CLOSE</div>
-                </button>
-              </div>
-            </div>
-            {/* /.col end*/}
-          </div>
-          {/* row end*/}
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="tab-content" id="myTabContent">
-                <div className="tab-pane fade active show" id="home" role="tabpanel">
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead style={{ textAlign: "center" }}>
-                        <tr>
-                          <th>Avatar</th>
-                          <th>Name</th>
-                          <th>Status</th>
-                          <th>Content</th>
-                        </tr>
-                      </thead>
-                      <tbody style={{ textAlign: "center" }}>{elementCancel}</tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* /col end*/}
-          </div>
-          {/* /row end*/}
-        </div>
-      </div>
-      <div className="event-schedule-area-two bg-color pad100">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12" style={{ display: 'flex', justifyContent: 'center' }}>
-              <div className="section-title text-center">
-                <button className="btn btn-primary" onClick={handleAccept}>
-                  <div className="title-text" style={{ fontSize: "40px" }}>SHOW LIST ACCEPT </div>
-                </button>
-
-              </div>
-              <div className="section-title text-center" style={{ marginLeft: '10px' }}>
-                <button className="btn btn-primary" onClick={handleAcceptCancel}>
-                  <div className="title-text" style={{ fontSize: "40px" }}>CLOSE</div>
-                </button>
-              </div>
-            </div>
-            {/* /.col end*/}
-          </div>
-          {/* row end*/}
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="tab-content" id="myTabContent">
-                <div className="tab-pane fade active show" id="home" role="tabpanel">
-                  <div className="table-responsive">
-                    <table className="table">
-                      <thead style={{ textAlign: "center" }}>
-                        <tr>
-                          <th>Avatar</th>
-                          <th>Name</th>
-                          <th>Status</th>
-                          <th>Content</th>
-                        </tr>
-                      </thead>
-                      <tbody style={{ textAlign: "center" }}>{elementAccept}</tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* /col end*/}
-          </div>
-          {/* /row end*/}
         </div>
       </div>
     </>

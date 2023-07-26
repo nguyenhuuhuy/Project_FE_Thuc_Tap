@@ -57,8 +57,8 @@ function DoctorDetail() {
       .catch((err) => {
         console.log(err);
       });
-    if (status.message == 'access_denied') {
-        alert("your are doctor can't not bookings!!!!")
+    if (status.message == 'access_denied_role') {
+        alert("your are doctor or admin can't not bookings!!!!")
       }
     setActive(!active);
     getListdataTimeSlotOder();

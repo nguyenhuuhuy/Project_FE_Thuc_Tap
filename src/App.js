@@ -11,12 +11,13 @@ import DoctorDetail from "./page/doctor/DoctorDetail";
 import HistoryOder from "./page/history/HistoryOder";
 import PrivateRoutesAdmin from "./utils/PrivateRouteAdmin";
 import Err404 from "./page/err/Err";
-import Specialty from "./page/specialty/Specialty";
+import SpecialtyPage from "./page/specialty/SpecialtyPage";
 import PrivateRouteDoctor from "./utils/PrivateRouteDoctor";
 import DoctorHome from "./doctorManage/DoctorHome";
 import CreateDoctor from "./page/doctor/Create";
 import DoctorAdmin from "./admin/DoctorAdmin";
 import UsersAdmin from "./admin/UsersAdmin";
+import CreateBooking from "./page/CreateBooking";
 function App() {
   return (
     <div className="App">
@@ -42,8 +43,9 @@ function App() {
           <Route path="/doctor" element={<Doctors />} />
           <Route path="/doctorDetail" element={<DoctorDetail />} />
           <Route path="/historyOder" element={<HistoryOder />} />
-          <Route path="/specialty" element={<Specialty/>}/>
+          <Route path="/specialty" element={<SpecialtyPage/>}/>
           <Route path="/err" element={<Err404/>}/>
+          <Route path="/create/booking" element={<CreateBooking/>} />
         </Route>
       </Routes>
     </div>

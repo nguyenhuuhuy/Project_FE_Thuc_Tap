@@ -24,18 +24,21 @@ function Login() {
     e.preventDefault();
     await login(user)
       .then((response) => {
+        console.log(response);
         if (response.data.status == 202) {
           setCheck({
             message: "Login failed! Please check your account !!!",
           });
         } else {
           // if (response.data.roles[0].authority == "DOCTOR") {
-            
-          // } 
+
+          // }
           if (response.data.message == "login_denied") {
             setCheck({
               message: "you have been locked nick !!!",
             });
+          } else if (response.data.message == "v") {
+            console.log(1);
           } else {
             sessionStorage.setItem(TOKEN_KEY, response.data.token);
             sessionStorage.setItem(NAME_KEY, response.data.name);

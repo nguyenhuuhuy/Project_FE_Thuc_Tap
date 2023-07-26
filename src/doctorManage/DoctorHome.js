@@ -131,6 +131,7 @@ const handleOpen = () => {
       .then((res) => SetDetailOderUser(res.data))
       .catch((err) => console.log(err));
   };
+
   let renderDetailOder = "";
   if (detailOderUser == undefined) {
     renderDetailOder = "";
@@ -251,8 +252,6 @@ const handleOpen = () => {
     setActive(!active);
   };
   const accessDenied = (id, doctorId) => {
-    console.log(id);
-    console.log(doctorId);
     cancelBookingByTimeSlotId(id).then((res) => {
       if (res.data.message == "update_success") {
         getListOderTimesByDoctorId(doctorId)

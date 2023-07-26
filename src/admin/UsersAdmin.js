@@ -175,12 +175,15 @@ function UsersAdmin() {
        </>
      );
    }
-   console.log(detailUserById);
+
   return (
     <>
       {rederDetailUser}
       <div className="col-12">
-        <div className="col-xs-8 col-xs-offset-2 well" style={{ justifyContent: "center",marginBottom:'20%' }}>
+        <div
+          className="col-xs-8 col-xs-offset-2 well"
+          style={{ justifyContent: "center", marginBottom: "50%" }}
+        >
           <form
             className="form-inline my-2 my-lg-0"
             onSubmit={(e) => {
@@ -200,7 +203,7 @@ function UsersAdmin() {
               Search
             </button>
           </form>
-          <table className="table table-scroll table-striped">
+          <table className="table table-scroll table-striped" style={{marginBottom:'200px'}}>
             <thead>
               <tr style={{ textAlign: "center" }}>
                 <th>#</th>
@@ -210,7 +213,7 @@ function UsersAdmin() {
                 <th>Edit</th>
               </tr>
             </thead>
-            <tbody>{renderUser}</tbody>
+            <tbody style={{ height: "500px" }}>{renderUser}</tbody>
           </table>
         </div>
       </div>
