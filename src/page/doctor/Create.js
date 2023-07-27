@@ -47,20 +47,27 @@ function Create() {
   return (
     <>
       <div className="col-12">
-        <form className="form-signin">
+        <form
+          className="form-signin"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <h2 className="form-signin-heading">Doctor</h2>
           <select
             className="form-select col-12"
-            aria-label=".form-select-lg example"
             style={{ textAlign: "center", display: "flex", justifyContent: "center" }}
-            defaultValue={specialty}
             name="id"
             onChange={(e) => handleChange(e)}
+            required
           >
+            <option selected disabled={"disabled"} value={""}>
+              Open this select Specialty
+            </option>
             {element}
           </select>
           <br></br>
-          <button className="btn btn-lg btn-primary btn-block" type="submit" onClick={handleSubmit}>
+          <button className="btn btn-lg btn-primary btn-block" type="submit">
             Create
           </button>
         </form>

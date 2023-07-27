@@ -8,7 +8,7 @@ const detailDoctorById = "doctors/detail";
 const createDoctor = "doctors";
 const activeDoctor = "doctors/approve/doctor";
 const blockDoctor = "doctors/block/doctor";
-const searchDoctor = "doctors/search/doctor"
+const searchDoctor = "doctors/search"
 const getListDoctor = () => {
   return axios.get(`${doctors}`);
 };
@@ -33,7 +33,7 @@ const getDetailDoctorById = (id) => {
   });
 };
 const getSearchDoctorByName = (name) =>{
-  return axios.get(`${searchDoctor}/${name}`, {
+  return axios.get(`${searchDoctor}?doctor=${name}`, {
     headers: authHeader(),
   });
 }

@@ -18,6 +18,8 @@ import CreateDoctor from "./page/doctor/Create";
 import DoctorAdmin from "./admin/DoctorAdmin";
 import UsersAdmin from "./admin/UsersAdmin";
 import CreateBooking from "./page/CreateBooking";
+import DoctorBySpecialtyId from "./page/specialty/DoctorBySpecialtyId";
+import TimeSlotByDoctorId from "./page/specialty/TimeSlotByDoctorId";
 function App() {
   return (
     <div className="App">
@@ -26,26 +28,29 @@ function App() {
           {/* luồng của admin */}
           <Route element={<PrivateRoutesAdmin />}>
             <Route path="/specialtyAdmin" element={<SpecialtyAdmin />} />
-            <Route path="/doctorAdmin" element={<DoctorAdmin/>}/>
-            <Route path="/userAdmin" element={<UsersAdmin/>} />
+            <Route path="/doctorAdmin" element={<DoctorAdmin />} />
+            <Route path="/userAdmin" element={<UsersAdmin />} />
           </Route>
           {/* luồng khi đăng nhập không được vào login register */}
           <Route element={<PrivateLoginRouter />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
-          <Route element={<PrivateRouteDoctor/>}>
-            <Route path="/homeDoctor" element={<DoctorHome/>}/>
+          <Route element={<PrivateRouteDoctor />}>
+            <Route path="/homeDoctor" element={<DoctorHome />} />
           </Route>
           {/* các luồng luôn được vào */}
           <Route path="/" element={<Home />} />
-          <Route path="/createDoctor" element={<CreateDoctor/>}/>
+          <Route path="/createDoctor" element={<CreateDoctor />} />
           <Route path="/doctor" element={<Doctors />} />
           <Route path="/doctorDetail" element={<DoctorDetail />} />
           <Route path="/historyOder" element={<HistoryOder />} />
-          <Route path="/specialty" element={<SpecialtyPage/>}/>
-          <Route path="/err" element={<Err404/>}/>
-          <Route path="/create/booking" element={<CreateBooking/>} />
+          <Route path="/specialty" element={<SpecialtyPage />} />
+          <Route path="/specialty/:id" element={<DoctorBySpecialtyId />} />
+          <Route path="/specialty/doctor/:id" element={<TimeSlotByDoctorId/>} />
+
+          <Route path="/err" element={<Err404 />} />
+          <Route path="/create/booking" element={<CreateBooking />} />
         </Route>
       </Routes>
     </div>

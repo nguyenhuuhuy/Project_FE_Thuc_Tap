@@ -39,8 +39,6 @@ function DoctorDetail() {
       alert("You need to login !!! ");
       navigate("/login");
     }
-    // getTimeSlostById(timesId).then((res)=>setDetailOderTime(res.data))
-    
     setTimeSlotId(timesId);
     setActive(!active);
   };

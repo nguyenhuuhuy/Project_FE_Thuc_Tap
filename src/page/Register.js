@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postUsers } from "../service/authService";
-
 function Register() {
   let navigate = useNavigate();
   const [check, setCheck] = useState({
@@ -58,7 +57,7 @@ function Register() {
   return (
     <>
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-        <div className="container h-100">
+        <div className="container h-100" style={{paddingTop:'2%'}}>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-12 col-xl-11">
               <div className="card text-black" style={{ borderRadius: 25 }}>

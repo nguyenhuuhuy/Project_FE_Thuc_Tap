@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style/doctorAdmin.css";
-import { getDetailUserById, getListUser, getSearchUserByName, putBlockUserById } from "../service/userSrevices";
+import { getDetailUserById, getListUser, getSearchUserByName, putBlockUserById,getPageUser } from "../service/userSrevices";
 function UsersAdmin() {
   const [listUsers, setListUser] = useState();
   const [detailUserById, setDetailUserById] = useState();
@@ -213,7 +213,9 @@ function UsersAdmin() {
                 <th>Edit</th>
               </tr>
             </thead>
-            <tbody style={{ height: "500px" }}>{renderUser}</tbody>
+            <tbody style={{ height: "500px" }}>
+              {renderUser}
+              </tbody>
           </table>
         </div>
       </div>

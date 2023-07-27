@@ -13,7 +13,9 @@ function Header() {
     backgroundColor: isActive ? "#d0a772" : "white",
     marginRight: 15,
   });
-
+  const handleHome = ()=>{
+    window.scroll(0, 0);
+  }
   const username = sessionStorage.getItem("Name_key");
   const avatar = sessionStorage.getItem("Avatar_Key");
   let elementAdmin = "";
@@ -73,9 +75,9 @@ function Header() {
       <>
         <li className="nav-item" id="nav_avatar">
           <div>
-            <img src={avatar} className="avatar" />
+            <img src={avatar} className="avatar" style={{marginTop:'30%'}}/>
           </div>
-          <p style={{ color: "black", height: 40, marginTop: 20, marginLeft: 10 }}>{username}</p>
+          <p style={{ color: "black", marginTop: 20, marginLeft: 10 }}>{username}</p>
         </li>
         <li>
           <button
@@ -124,7 +126,7 @@ function Header() {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto" style={{marginBottom:'0'}}>
+          <ul className="navbar-nav mr-auto" style={{ paddingBottom: "0" }}>
             <li className="nav-item active">
               <NavLink className="nav-link" to={"/"} style={navLinkStyle}>
                 Home
@@ -146,6 +148,11 @@ function Header() {
           <ul className="navbar-nav" style={{ marginRight: "200px" }}>
             {element}
           </ul>
+        </div>
+        <div>
+          <button className="go_home" onClick={()=>handleHome()}>
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
         </div>
       </nav>
     </>

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { login } from "../service/authService";
 import { useNavigate } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 function Login() {
   const TOKEN_KEY = "Token_Key";
   const NAME_KEY = "Name_key";
   const AVATAR_KEY = "Avatar_Key";
   const ROLE_KEY = "Role_Key";
   const navigate = useNavigate();
+  // const [userGoogle, setUserGoogle] = useState([]);
+  // const [profile, setProfile] = useState([]);
   const [check, setCheck] = useState({
     message: "",
   });
@@ -53,6 +58,29 @@ function Login() {
       });
   };
 
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => setUserGoogle(codeResponse),
+  //   onError: (error) => console.log("Login Failed:", error),
+  // });
+  //  useEffect(() => {
+  //    if (userGoogle) {
+  //      axios
+  //        .get(
+  //          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`,
+  //          {
+  //            headers: {
+  //              Authorization: `Bearer ${userGoogle.access_token}`,
+  //              Accept: "application/json",
+  //            },
+  //          }
+  //        )
+  //        .then((res) => {
+  //          setProfile(res.data);
+  //        })
+  //        .catch((err) => console.log(err));
+  //    }
+  //  }, [userGoogle]);
+  //  console.log(profile);
   return (
     <>
       <section className="vh-100">
@@ -75,6 +103,9 @@ function Login() {
                 <p style={{ color: "red" }}>{check.message}</p>
                 {/* Email input */}
                 <div className="form-outline mb-4">
+                  <label className="form-label" htmlFor="form3Example3">
+                    username
+                  </label>
                   <input
                     type="text"
                     id="form3Example3"
@@ -84,12 +115,12 @@ function Login() {
                     value={username}
                     onChange={(e) => onInputChane(e)}
                   />
-                  <label className="form-label" htmlFor="form3Example3">
-                    username
-                  </label>
                 </div>
                 {/* Password input */}
                 <div className="form-outline mb-3">
+                  <label className="form-label" htmlFor="form3Example4">
+                    Password
+                  </label>
                   <input
                     type="password"
                     id="form3Example4"
@@ -99,9 +130,6 @@ function Login() {
                     value={password}
                     onChange={(e) => onInputChane(e)}
                   />
-                  <label className="form-label" htmlFor="form3Example4">
-                    Password
-                  </label>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   {/* Checkbox */}
@@ -114,11 +142,13 @@ function Login() {
                   >
                     Login
                   </button>
-                  <p className="small fw-bold mt-2 pt-1 mb-0">
+                  {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
+                  {/* <button onClick={() => login()}>Sign in with Google 🚀 </button> */}
+                  <p className="small fw-bold mt-2 pt-1 mb-0" style={{ color: "black" }}>
                     Don't have an account?{" "}
-                    <a href="#!" className="link-danger">
+                    <NavLink to={"/register"} className="link-danger">
                       Register
-                    </a>
+                    </NavLink>
                   </p>
                 </div>
               </form>

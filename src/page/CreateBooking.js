@@ -123,8 +123,9 @@ function CreateBooking() {
                   id="exampleFormControlSelect1"
                   name="specialty"
                   onChange={(e) => handleChange(e)}
+                  required
                 >
-                  <option selected disabled>
+                  <option selected disabled={"disabled"} value={""}>
                     Open this select specialty
                   </option>
                   {renderListSpecialty}
@@ -138,8 +139,9 @@ function CreateBooking() {
                   id="exampleFormControlSelect2"
                   name="idTimes"
                   onChange={(e) => handleChangeDoctor(e)}
+                  required
                 >
-                  <option selected disabled>
+                  <option selected disabled={"disabled"} value={""}>
                     Open this select Doctor
                   </option>
                   {renderListDoctorbySpecialtyId}
@@ -152,8 +154,11 @@ function CreateBooking() {
                   aria-label=".form-select-sm example"
                   name="id"
                   onChange={(e) => handleChangeTimesId(e)}
+                  required
                 >
-                  <option disabled selected>Open this select menu</option>
+                  <option disabled={"disabled"} value={""} selected>
+                    Open this select menu
+                  </option>
                   {renderListTimes}
                 </select>
               </div>

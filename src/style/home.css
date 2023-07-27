@@ -430,7 +430,6 @@ strong {
     padding: 0;
     cursor: pointer;
     margin: 0;
-    width: 30px;
     height: 35px;
     outline: none;
 }
@@ -1412,6 +1411,7 @@ blockquote::before {
 
     .navbar-expand-lg .navbar-nav .nav-link {
         padding: 8px 20px;
+        width: 190%;
     }
 
     .dropdown:hover .dropdown-menu {

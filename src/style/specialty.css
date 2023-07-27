@@ -152,3 +152,7 @@
 .margin-30px-bottom {
     margin-bottom: 30px;
 }
+
+.pagination {
+    justify-content: center;
+}
