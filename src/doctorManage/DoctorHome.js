@@ -369,7 +369,7 @@ const handleOpen = () => {
       <form className={status ? "oderTime" : "oderTime_close"}>
         <div className="form-group">
           <div className="col-12">
-            <i class="fa-solid fa-xmark" id="close_oder"></i>
+            <i class="fa-solid fa-xmark" id="close_oder" onClick={()=>{setStatus(!status)}}></i>
             <p style={{ color: "red" }}>{timeSlotExited.message}</p>
             <label className="form-label">Times</label>
             <select

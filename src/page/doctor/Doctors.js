@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCheckListDoctor, getListDoctor } from '../../service/doctorService';
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import "../../style/doctors.css";
 function Doctors() {
     const navigate = useNavigate();

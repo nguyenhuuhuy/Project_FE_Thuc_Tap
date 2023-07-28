@@ -5,25 +5,44 @@ const page = "api/page/users";
 const blockUser = "api/block/user";
 const searchUser = "api/search";
 const detailUser = "api/detail/user";
-const getListUser =  () => {
+const updateUser = "api/update/user";
+const getListUser = () => {
   return axios.get(`${users}`);
 };
-const getPageUser = (pageNumber,pageSize) =>{
+const getPageUser = (pageNumber, pageSize) => {
   return axios.get(`${page}?page=${pageNumber}&size=${pageSize}`);
-}
-const getSearchUserByName = (name) =>{
+};
+const getSearchUserByName = (name) => {
   return axios.get(`${searchUser}?users=${name}`, {
     headers: authHeader(),
   });
-}
-const putBlockUserById = (userId) =>{
+};
+const putBlockUserById = (userId) => {
   return axios.get(`${blockUser}/${userId}`, {
     headers: authHeader(),
   });
-}
-const getDetailUserById = (userId) =>{
+};
+const getDetailUser = () => {
+  return axios.get(`${detailUser}`, {
+    headers: authHeader(),
+  });
+};
+const getDetailUserById = (userId) => {
   return axios.get(`${detailUser}/${userId}`, {
     headers: authHeader(),
   });
-}
-export { getListUser,getPageUser, getSearchUserByName, putBlockUserById, getDetailUserById};
+};
+const putUpdateuser = async (newUpdate) => {
+  return await axios.put(`${updateUser}`, newUpdate, {
+    headers: authHeader(),
+  });
+};
+export {
+  getListUser,
+  getPageUser,
+  getSearchUserByName,
+  putBlockUserById,
+  getDetailUser,
+  getDetailUserById,
+  putUpdateuser,
+};

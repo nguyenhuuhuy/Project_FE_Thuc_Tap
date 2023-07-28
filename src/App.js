@@ -20,6 +20,7 @@ import UsersAdmin from "./admin/UsersAdmin";
 import CreateBooking from "./page/CreateBooking";
 import DoctorBySpecialtyId from "./page/specialty/DoctorBySpecialtyId";
 import TimeSlotByDoctorId from "./page/specialty/TimeSlotByDoctorId";
+import DetailUser from "./page/DetailUser";
 function App() {
   return (
     <div className="App">
@@ -48,7 +49,7 @@ function App() {
           <Route path="/specialty" element={<SpecialtyPage />} />
           <Route path="/specialty/:id" element={<DoctorBySpecialtyId />} />
           <Route path="/specialty/doctor/:id" element={<TimeSlotByDoctorId/>} />
-
+          <Route path="/detail/user" element={<DetailUser/>} />
           <Route path="/err" element={<Err404 />} />
           <Route path="/create/booking" element={<CreateBooking />} />
         </Route>

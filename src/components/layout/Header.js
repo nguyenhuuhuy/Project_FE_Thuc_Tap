@@ -75,7 +75,7 @@ function Header() {
       <>
         <li className="nav-item" id="nav_avatar">
           <div>
-            <img src={avatar} className="avatar" style={{marginTop:'30%'}}/>
+            <img src={avatar} className="avatar" style={{marginTop:'30%'}} onClick={()=>handleDetailUser()}/>
           </div>
           <p style={{ color: "black", marginTop: 20, marginLeft: 10 }}>{username}</p>
         </li>
@@ -106,6 +106,10 @@ function Header() {
         </li>
       </>
     );
+  }
+
+  const handleDetailUser = ()=>{
+    navigate("/detail/user")
   }
 
   return (
