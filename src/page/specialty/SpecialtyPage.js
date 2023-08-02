@@ -47,7 +47,7 @@ function SpecialtyPage() {
   }
   return (
     <>
-      <section>
+      <section style={{paddingTop:'10%',paddingBottom:'10%'}}>
         <div className="container">
           <div className="section-heading title-style4 border-bottom padding-25px-bottom sm-padding-15px-bottom">
             <h3>

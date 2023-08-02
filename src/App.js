@@ -21,6 +21,9 @@ import CreateBooking from "./page/CreateBooking";
 import DoctorBySpecialtyId from "./page/specialty/DoctorBySpecialtyId";
 import TimeSlotByDoctorId from "./page/specialty/TimeSlotByDoctorId";
 import DetailUser from "./page/DetailUser";
+import DetailDoctor from "./page/DetailDoctor";
+import DetailSpecialty from "./page/DetailSpecialty";
+import PrivateHistory from "./utils/PrivateHistory";
 function App() {
   return (
     <div className="App">
@@ -40,18 +43,22 @@ function App() {
           <Route element={<PrivateRouteDoctor />}>
             <Route path="/homeDoctor" element={<DoctorHome />} />
           </Route>
+          <Route element={<PrivateHistory />}>
+            <Route path="/historyOder" element={<HistoryOder />} />
+          </Route>
           {/* các luồng luôn được vào */}
           <Route path="/" element={<Home />} />
           <Route path="/createDoctor" element={<CreateDoctor />} />
           <Route path="/doctor" element={<Doctors />} />
           <Route path="/doctorDetail" element={<DoctorDetail />} />
-          <Route path="/historyOder" element={<HistoryOder />} />
           <Route path="/specialty" element={<SpecialtyPage />} />
           <Route path="/specialty/:id" element={<DoctorBySpecialtyId />} />
-          <Route path="/specialty/doctor/:id" element={<TimeSlotByDoctorId/>} />
-          <Route path="/detail/user" element={<DetailUser/>} />
+          <Route path="/specialty/doctor/:id" element={<TimeSlotByDoctorId />} />
+          <Route path="/detail/user" element={<DetailUser />} />
           <Route path="/err" element={<Err404 />} />
           <Route path="/create/booking" element={<CreateBooking />} />
+          <Route path="/detail/doctor/:id" element={<DetailDoctor />} />
+          <Route path="/detail/specialty/:id" element={<DetailSpecialty />} />
         </Route>
       </Routes>
     </div>

@@ -2,20 +2,17 @@ import React, { useState,useEffect } from "react";
 import { login } from "../service/authService";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Login() {
   const TOKEN_KEY = "Token_Key";
   const NAME_KEY = "Name_key";
   const AVATAR_KEY = "Avatar_Key";
   const ROLE_KEY = "Role_Key";
   const navigate = useNavigate();
-  // const [userGoogle, setUserGoogle] = useState([]);
-  // const [profile, setProfile] = useState([]);
-  const [check, setCheck] = useState({
-    message: "",
-  });
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -29,19 +26,8 @@ function Login() {
     e.preventDefault();
     await login(user)
       .then((response) => {
-        console.log(response);
-        if (response.data.status == 202) {
-          setCheck({
-            message: "Login failed! Please check your account !!!",
-          });
-        } else {
-          // if (response.data.roles[0].authority == "DOCTOR") {
-
-          // }
           if (response.data.message == "login_denied") {
-            setCheck({
-              message: "you have been locked nick !!!",
-            });
+            toast.error("you have been locked nick !!!", { position: toast.POSITION.TOP_CENTER,autoClose:1000 });
           } else if (response.data.message == "v") {
             console.log(1);
           } else {
@@ -51,39 +37,18 @@ function Login() {
             sessionStorage.setItem(ROLE_KEY, JSON.stringify(response.data.roles));
             navigate("/");
           }
-        }
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Login failed! Please check your account !!!", {
+          position: toast.POSITION.TOP_CENTER,autoClose:1000
+        });
       });
   };
 
-  // const login = useGoogleLogin({
-  //   onSuccess: (codeResponse) => setUserGoogle(codeResponse),
-  //   onError: (error) => console.log("Login Failed:", error),
-  // });
-  //  useEffect(() => {
-  //    if (userGoogle) {
-  //      axios
-  //        .get(
-  //          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${userGoogle.access_token}`,
-  //          {
-  //            headers: {
-  //              Authorization: `Bearer ${userGoogle.access_token}`,
-  //              Accept: "application/json",
-  //            },
-  //          }
-  //        )
-  //        .then((res) => {
-  //          setProfile(res.data);
-  //        })
-  //        .catch((err) => console.log(err));
-  //    }
-  //  }, [userGoogle]);
-  //  console.log(profile);
   return (
     <>
-      <section className="vh-100">
+      <section className="vh-100" style={{ marginTop: "10%", marginBottom: "5%" }}>
         <div className="container-fluid h-custom">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-md-9 col-lg-6 col-xl-5">
@@ -100,7 +65,6 @@ function Login() {
                 }}
               >
                 <h2>Login</h2>
-                <p style={{ color: "red" }}>{check.message}</p>
                 {/* Email input */}
                 <div className="form-outline mb-4">
                   <label className="form-label" htmlFor="form3Example3">
@@ -177,6 +141,7 @@ function Login() {
           {/* Right */}
         </div>
       </section>
+      <ToastContainer transition={Zoom} />
     </>
   );
 }

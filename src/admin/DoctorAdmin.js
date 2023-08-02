@@ -12,6 +12,7 @@ function DoctorAdmin() {
     getListDoctor().then((res) => setListDoctor(res.data));
   }
   useEffect(() => {
+    window.scrollTo(0, 0);
     listDoctorData();
   }, []);
   let element = null;
@@ -204,7 +205,7 @@ const { name} = searchDoctor;
   return (
     <>
       {rederDetailDoctor}
-      <div className="col-xs-8 col-xs-offset-2 well" style={{ justifyContent: "center",marginBottom:'20%' }}>
+      <div className="col-xs-8 col-xs-offset-2 well" style={{marginBottom:'20%', marginTop:'10%' }}>
         <form
           className="form-inline my-2 my-lg-0"
           onSubmit={(e) => {

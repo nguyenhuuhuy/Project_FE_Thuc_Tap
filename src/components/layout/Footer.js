@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useNavigate, NavLink, Link } from "react-router-dom";
 function Footer() {
+  const navigate = useNavigate();
   return (
     <>
       <footer className="bg-light text-center text-white">
@@ -8,79 +9,46 @@ function Footer() {
         <div className="container p-4 pb-0">
           {/* Section: Social media */}
           <section className="mb-4">
-            {/* Facebook */}
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#3b5998" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-facebook-f" />
-            </a>
             {/* Twitter */}
-            <a
+            <Link
               className="btn text-white btn-floating m-1"
               style={{ backgroundColor: "#55acee" }}
               href="#!"
               role="button"
+              target="_blank"
+              to={"https://twitter.com/HuyNguy84659301"}
             >
               <i className="fab fa-twitter" />
-            </a>
-            {/* Google */}
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#dd4b39" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-google" />
-            </a>
+            </Link>
             {/* Instagram */}
-            <a
+            <Link
               className="btn text-white btn-floating m-1"
               style={{ backgroundColor: "#ac2bac" }}
               href="#!"
               role="button"
+              target="_blank"
+              to={"https://www.instagram.com/huy.cb9/"}
             >
               <i className="fab fa-instagram" />
-            </a>
-            {/* Linkedin */}
-            <a
-              className="btn text-white btn-floating m-1"
-              style={{ backgroundColor: "#0082ca" }}
-              href="#!"
-              role="button"
-            >
-              <i className="fab fa-linkedin-in" />
-            </a>
+            </Link>
             {/* Github */}
-            <a
+            <Link
               className="btn text-white btn-floating m-1"
               style={{ backgroundColor: "#333333" }}
               href="#!"
               role="button"
+              target="_blank"
+              to={"https://github.com/nguyenhuuhuy/Project_FE_Thuc_Tap"}
             >
               <i className="fab fa-github" />
-            </a>
+            </Link>
           </section>
           {/* Section: Social media */}
         </div>
         {/* Grid container */}
-        {/* Copyright */}
-        <div
-          className="text-center p-3"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-        >
-          © 2020 Copyright:
-          <a className="text-white" href="https://mdbootstrap.com/">
-            MDBootstrap.com
-          </a>
-        </div>
-        {/* Copyright */}
       </footer>
-
     </>
-  )
+  );
 }
 
 export default Footer

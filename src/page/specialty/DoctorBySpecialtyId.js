@@ -21,7 +21,7 @@ function DoctorBySpecialtyId() {
   };
   return (
     <>
-      <div className="container bootstrap snippets bootdey">
+      <div className="container bootstrap snippets bootdey" style={{paddingTop:'10%'}}>
         <div className="row">
           <div className="col-lg-12">
             <div className="main-box no-header clearfix">

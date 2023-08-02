@@ -8,7 +8,6 @@ import { v4 } from "uuid";
 function DetailUser() {
   const NAME_KEY = "Name_key";
   const AVATAR_KEY = "Avatar_Key";
-  // const [imgaeUpload, setImageUpload] = useState(null);
   const [active,setActive] = useState(false);
   const [updateUser, setUpdateUser] = useState({
     name: "",
@@ -130,7 +129,7 @@ function DetailUser() {
 
           <div
             className="container bootstrap snippets bootdey"
-            style={{ marginBottom: "5%", marginTop: "5%" }}
+            style={{ marginBottom: "5%", marginTop: "10%" }}
           >
             <div className="panel-body inf-content">
               <div className="row">

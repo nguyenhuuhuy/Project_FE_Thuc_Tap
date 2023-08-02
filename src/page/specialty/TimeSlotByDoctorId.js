@@ -46,6 +46,7 @@ function TimeSlotByDoctorId() {
       .then((res) => {
         if (res.data.message == "access_denied_role") {
           alert("your are doctor or admin can't not bookings!!!!");
+          setActive(!active);
         } else {
           alert("Create Success!!!!");
           setActive(!active);
@@ -59,7 +60,7 @@ function TimeSlotByDoctorId() {
   console.log(status);
   return (
     <>
-      <div className="table-wrapper-scroll-y my-custom-scrollbar">
+      <div className="table-wrapper-scroll-y my-custom-scrollbar" style={{paddingTop:'10%'}}>
         <table className="table table-bordered table-striped mb-0">
           <thead style={{ textAlign: "center" }}>
             <tr>

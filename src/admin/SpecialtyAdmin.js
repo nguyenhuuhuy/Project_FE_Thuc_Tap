@@ -31,6 +31,7 @@ function SpecialtyAdmin() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dataListSpecialty();
   }, []);
 
@@ -149,7 +150,7 @@ function SpecialtyAdmin() {
   };
   return (
     <>
-      <div className="col-12">
+      <div className="col-12" style={{marginTop:'10%',marginBottom:'2%'}}>
         <div className="col-xs-8 col-xs-offset-2 well" style={{ justifyContent: "center" }}>
           <form
             className="form-inline my-2 my-lg-0"
@@ -186,7 +187,7 @@ function SpecialtyAdmin() {
       <button
         type="button"
         class="btn btn-primary btn-lg btn-block"
-        style={{ marginTop: "100px" }}
+        style={{ marginTop: "100px",marginBottom:'5%' }}
         onClick={handleCreateOpen}
       >
         create specialty

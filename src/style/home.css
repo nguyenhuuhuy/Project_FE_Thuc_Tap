@@ -1625,3 +1625,15 @@ blockquote::before {
         padding: 25px;
     }
 }
+
+main{
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/project-e0da8.appspot.com/o/s.jpg?alt=media&token=84897c4d-a860-4c43-8755-b5a3f1675171");
+        background-size: cover;
+}
+
+
+
+
+.featured-block-text{
+    color: black;
+}

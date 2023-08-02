@@ -4,6 +4,8 @@ import { getListDoctorBySpecialtyId } from "../service/doctorService";
 import { getListOderTimesByDoctorId } from "../service/TimeSlotsService";
 import { oderBookings } from "../service/bookingsService";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateBooking() {
   const navigate = useNavigate();
@@ -89,13 +91,18 @@ function CreateBooking() {
     oderBookings(oderTimeId.id, newOder)
       .then((res) => {
         if (res.data.message == "create_success") {
-          alert("create success !!!");
+           toast("create success !!!!", {
+             position: toast.POSITION.TOP_CENTER,
+           });
           navigate("/");
         } else if (res.data.message == "access_denied") {
-          alert("you need to login !!!");
+          toast.warning("you need to login !!!", { position: toast.POSITION.TOP_CENTER });
           navigate("/login");
         } else if (res.data.message == "access_denied_role") {
-          alert("your are doctor or admin can't not bookings!!!!");
+          toast.error("your are doctor or admin can't not bookings!!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+
         }
       })
       .catch((err) => {
@@ -107,7 +114,7 @@ function CreateBooking() {
   };
   return (
     <>
-      <div className="col-12">
+      <div className="col-12" style={{ paddingTop: "10%" }}>
         <div className="row" style={{ justifyContent: "center" }}>
           <div className="col-6" style={{ textAlign: "center" }}>
             <form
@@ -117,7 +124,7 @@ function CreateBooking() {
             >
               <h2>Booking</h2>
               <div className="form-group">
-                <label htmlFor="exampleFormControlSelect1">Specialty</label>
+                <label htmlFor="exampleFormControlSelect1" >Specialty</label>
                 <select
                   className="form-control"
                   id="exampleFormControlSelect1"
@@ -182,6 +189,7 @@ function CreateBooking() {
           </div>
         </div>
       </div>
+      <ToastContainer transition={Zoom} />
     </>
   );
 }

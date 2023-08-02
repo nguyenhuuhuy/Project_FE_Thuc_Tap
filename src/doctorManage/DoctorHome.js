@@ -8,6 +8,8 @@ import {
   getDetailBookingsByTimeSlotId,
   successBookingByTimeSlotId,
 } from "../service/bookingsService";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DoctorHome() {
     const navigate = useNavigate();
@@ -80,7 +82,6 @@ const handleOpen = () => {
     getListOderTimesByDoctorId(id)
       .then((res) => {
         if (res.data.message == "not_found") {
-            alert("No list booking !!!")
             navigate("/homeDoctor");
         } else{
         setListTimes(res.data);
@@ -278,6 +279,7 @@ const handleOpen = () => {
       .then((res) => {
         setStatus(!status);
         alert("create success!!!");
+        setTimeSlotExited({message:""});
       })
       .catch((err) => {
         setTimeSlotExited({
@@ -287,7 +289,7 @@ const handleOpen = () => {
   };
   return (
     <>
-      <div className="container bootstrap snippets bootdey">
+      <div className="container bootstrap snippets bootdey" style={{ paddingTop: "6%" }}>
         <div className="row">
           {/* BEGIN USER PROFILE */}
           <div className="col-md-12">
@@ -298,7 +300,7 @@ const handleOpen = () => {
                     src={avatar}
                     className="img-circle"
                     alt=""
-                    style={{ width: "100px", height: "100px" }}
+                    style={{ width: "100px", height: "100px", borderRadius: "50%" }}
                   />
                 </div>
                 <div className="col-xs-7">
@@ -369,7 +371,13 @@ const handleOpen = () => {
       <form className={status ? "oderTime" : "oderTime_close"}>
         <div className="form-group">
           <div className="col-12">
-            <i class="fa-solid fa-xmark" id="close_oder" onClick={()=>{setStatus(!status)}}></i>
+            <i
+              class="fa-solid fa-xmark"
+              id="close_oder"
+              onClick={() => {
+                setStatus(!status);
+              }}
+            ></i>
             <p style={{ color: "red" }}>{timeSlotExited.message}</p>
             <label className="form-label">Times</label>
             <select
@@ -437,10 +445,16 @@ const handleOpen = () => {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={handleOderSubmit}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleOderSubmit}
+          style={{ marginBottom: "10px" }}
+        >
           Submit
         </button>
       </form>
+      <ToastContainer transition={Zoom} />
     </>
   );
 }

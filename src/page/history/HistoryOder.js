@@ -20,22 +20,26 @@ function HistoryOder() {
   useEffect(() => {
     getListHistoryData();
   }, []);
-
+  // console.log(listHistory);
   const handleChangeList = (e) => {
     let check = e.target.id;
     setActive(check);
     if (e.target.id == "all") {
       setListRender(listHistory);
     } else {
-      const element = listHistory.filter((h) => h.isConfirm == e.target.id);
-      setListRender(element);
+      if (listHistory.message == "not_found") {
+        console.log("chua co gi");
+      } else {
+        const element = listHistory.filter((h) => h.isConfirm == e.target.id);
+        setListRender(element);
+      }
     }
   };
 
   let renderList = [];
   let renderListHome = [];
   if (listRender == undefined) {
-    renderList = listHistory;
+    renderListHome = [];
   } else if (listRender.length > 0) {
     renderList = listRender;
     renderListHome = renderList.map((e, index) => {
@@ -46,6 +50,7 @@ function HistoryOder() {
             <span className="user-subhead">{e.user.name}</span>
           </td>
           <td>{e.date_book}</td>
+          <td>{e.timeSlot.date_book}</td>
           <td>{e.timeSlot.times}</td>
           <td className="text-center">
             <span className="label label-default">{e.isConfirm}</span>
@@ -82,18 +87,16 @@ function HistoryOder() {
     putCancelByBookingId(id).then((res) => {
       if (res.data.message == "update_success") {
         alert("cancel successfully !!!");
-      window.location.reload();
+        window.location.reload();
       }
     });
   };
 
-
   console.log(renderList);
-
 
   return (
     <>
-      <div className="menu-box">
+      <div className="menu-box" style={{ marginTop: "6%", marginBottom: "10%" }}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -136,7 +139,7 @@ function HistoryOder() {
                     onClick={handleChangeList}
                     className={active == "NOT_ACCEPT" ? "active" : "isActive"}
                   >
-                    NOT_ACCEPT
+                    NOT ACCEPT
                   </button>
                   <button
                     data-filter=".CANCEL"
@@ -167,19 +170,22 @@ function HistoryOder() {
                                 <span>Created</span>
                               </th>
                               <th>
-                                <span>time</span>
+                                <span>Date</span>
+                              </th>
+                              <th>
+                                <span>Time</span>
                               </th>
                               <th className="text-center">
                                 <span>Status</span>
                               </th>
                               <th>
-                                <span>content</span>
+                                <span>Content</span>
                               </th>
                               <th>
-                                <span>doctor</span>
+                                <span>Doctor</span>
                               </th>
                               <th>
-                                <span>cpeccialty</span>
+                                <span>Cpeccialty</span>
                               </th>
                               <th>&nbsp;</th>
                             </tr>

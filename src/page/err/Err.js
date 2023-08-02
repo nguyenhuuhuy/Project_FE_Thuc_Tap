@@ -1,31 +1,32 @@
-import React from 'react';
+import React from "react";
 import "../../style/err.css";
-
+import {useNavigate} from "react-router-dom";
 function Err404() {
+    const navigate = useNavigate();
   return (
     <>
-          <section className="page_404">
-              <div className="container">
-                  <div className="row">
-                      <div className="col-sm-12 ">
-                          <div className="col-sm-10 col-sm-offset-1  text-center">
-                              <div className="four_zero_four_bg">
-                                  <h1 className="text-center ">404</h1>
-                              </div>
-                              <div className="contant_box_404">
-                                  <h3 className="h2">Look like you're lost</h3>
-                                  <p>the page you are looking for not avaible!</p>
-                                  <a href="/" className="link_404">
-                                      Go to Home
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
+      <meta charSet="utf-8"/>
+      <title>404</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet" />
+      <div className="grid">
+        <div className="grid__row">
+          <div className="grid__col">
+            <div className="box animation animation--shake--vertical">4</div>
+          </div>
+          <div className="grid__col">
+            <div className="box animation animation--reverse animation--shake--vertical">0</div>
+          </div>
+          <div className="grid__col">
+            <div className="box animation animation--shake--vertical">4</div>
+          </div>
+        </div>
+        <div style={{marginBottom:'4%',marginTop:'2%',marginLeft:'40%'}} onClick={()=>{navigate("/")}}>
+          <button className="custom-btn btn-2">Go Home</button>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Err404
+export default Err404;

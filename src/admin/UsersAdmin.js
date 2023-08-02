@@ -12,6 +12,7 @@ function UsersAdmin() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dataUser();
   }, []);
   let renderUser = null;
@@ -179,10 +180,10 @@ function UsersAdmin() {
   return (
     <>
       {rederDetailUser}
-      <div className="col-12">
+      <div className="col-12" >
         <div
           className="col-xs-8 col-xs-offset-2 well"
-          style={{ justifyContent: "center", marginBottom: "50%" }}
+          style={{ marginBottom: "50%",marginTop:'10%' }}
         >
           <form
             className="form-inline my-2 my-lg-0"

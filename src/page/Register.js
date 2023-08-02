@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postUsers } from "../service/authService";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Register() {
   let navigate = useNavigate();
   const [check, setCheck] = useState({
@@ -14,7 +16,9 @@ function Register() {
     repeatPassword: "",
     roles: ["user"],
   });
-
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
   const { name, username, email, password, repeatPassword } = user;
   const onInputChane = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -39,13 +43,17 @@ function Register() {
     } else {
       postUsers(postNewUser).then((res) =>{
          if (res.data.message == "User_Name_already_exists") {
-          setCheck(res.data)
+          setCheck({ message: "Username already exists!!!!" });
           user.username = "";
         } else if (res.data.message == "Email_already_exists") {
-          setCheck(res.data)
+                    setCheck({ message: "Email already exists!!!!" });
           user.email = "";
         } else if (res.data.message == "create_success") {
+          setCheck({ message: "" });
           navigate("/login");
+           toast("Create success !!!", {
+             position: toast.POSITION.TOP_CENTER,
+           });
         }
       }).catch((err)=>{
         console.log(err);
@@ -56,16 +64,19 @@ function Register() {
 
   return (
     <>
-      <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-        <div className="container h-100" style={{paddingTop:'2%'}}>
-          <div className="row d-flex justify-content-center align-items-center h-100">
+      <section className="vh-100" style={{ backgroundColor: "#eee",marginTop:'3%' }}>
+        <div className="container h-100" style={{ paddingTop: "2%" }}>
+          <div
+            className="row d-flex justify-content-center align-items-center h-100"
+            style={{ backgroundColor: "white" }}
+          >
             <div className="col-lg-12 col-xl-11">
               <div className="card text-black" style={{ borderRadius: 25 }}>
                 <div className="card-body p-md-5">
                   <div className="row justify-content-center">
                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                      <p style={{ color: "red" }}>{check.message}</p>
+                      <p style={{ color: "red",marginLeft:'25%' }}>{check.message}</p>
                       <form
                         className="mx-1 mx-md-4"
                         onSubmit={(e) => {
@@ -178,6 +189,7 @@ function Register() {
           </div>
         </div>
       </section>
+      <ToastContainer transition={Zoom} />
     </>
   );
 }

@@ -84,7 +84,7 @@
 .go_home {
   font-family: "Raleway", sans-serif;
   position: fixed;
-  bottom: 4rem;
+  bottom: 3rem;
   right: 4rem;
   border: 0px !important;
 
@@ -93,9 +93,20 @@
   border-radius: 100%;
   font-size: 1.5em;
   transition: transform 0.3s ease;
-  background-color: bisque;
+  background: rgba(246, 233, 233);
   outline: none !important;
   &:active {
     transform: scale(0.7);
   }
+}
+
+.searchAll{
+  display: grid;
+}
+
+.searchList{
+  position: fixed;
+  background-color: #ffffff;
+  top:12%;
+  left: 25%;
 }
