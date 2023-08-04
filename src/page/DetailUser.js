@@ -53,21 +53,33 @@ function DetailUser() {
     
   };
 
+  const clickTest = () =>{
+    
+clickInput()
+   
+  }
+  const clickInput = ()=>{
+    console.log(1);
+  }
   return (
     <>
       {detailUser == undefined ? (
         <></>
       ) : (
         <>
-          <div className={active == true ? "model_Update container" : "model_Update_Close container"}>
+          <div
+            className={active == true ? "model_Update container" : "model_Update_Close container"}
+          >
             <div className="row" style={{ justifyContent: "center", marginTop: "15%" }}>
               <div className="col-6">
                 <div className="card">
                   <div className="card-body">
                     <i
-                      class="fa-solid fa-circle-xmark"
+                      className="fa-solid fa-circle-xmark"
                       style={{ fontSize: "30px", paddingLeft: "94%", paddingBottom: "1%" }}
-                      onClick={()=>{setActive(!active)}}
+                      onClick={() => {
+                        setActive(!active);
+                      }}
                     ></i>
                     <form
                       onSubmit={(e) => {
@@ -134,14 +146,14 @@ function DetailUser() {
             <div className="panel-body inf-content">
               <div className="row">
                 <div className="col-md-4">
-                  <img
-                    alt=""
-                    style={{ width: 600 }}
-                    title=""
-                    className="img-circle img-thumbnail isTooltip"
-                    src={detailUser.avatar}
-                    data-original-title="Usuario"
-                  />
+                    <img
+                      alt=""
+                      style={{ width: 600 }}
+                      title=""
+                      className="img-circle img-thumbnail isTooltip"
+                      src={detailUser.avatar}
+                      data-original-title="Usuario"
+                    />
                 </div>
                 <div className="col-md-6">
                   <strong>Information</strong>
@@ -174,7 +186,13 @@ function DetailUser() {
                             </strong>
                           </td>
                           <td className="text-primary">
-                            <button type="button" className="btn btn-info" onClick={()=>{setActive(!active)}}>
+                            <button
+                              type="button"
+                              className="btn btn-info"
+                              onClick={() => {
+                                setActive(!active);
+                              }}
+                            >
                               Edit
                             </button>
                           </td>

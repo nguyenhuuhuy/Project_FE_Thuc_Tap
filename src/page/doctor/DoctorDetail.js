@@ -84,7 +84,7 @@ function DoctorDetail() {
   //         <td>{e.times}</td>
   //         <td>
   //           {e.booked == false ? (
-  //             <button type="button" class="btn btn-primary" onClick={() => handleDetail(e.id)}>
+  //             <button type="button" className="btn btn-primary" onClick={() => handleDetail(e.id)}>
   //               Oder
   //             </button>
   //           ) : (
@@ -161,7 +161,7 @@ function DoctorDetail() {
                     {e.booked == false ? (
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={() => handleDetail(e.id)}
                       >
                         Order
@@ -193,7 +193,7 @@ function DoctorDetail() {
             onChange={(e) => onInputChane(e)}
           />
         </div>
-        <button type="submit" class="btn btn-success btn-lg" onClick={addNewBooking}>
+        <button type="submit" className="btn btn-success btn-lg" onClick={addNewBooking}>
           Booking
         </button>
         <ToastContainer transition={Zoom} />

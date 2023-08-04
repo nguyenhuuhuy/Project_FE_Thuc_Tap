@@ -9,11 +9,11 @@ function Header() {
   const [searchAll, setSearchAll] = useState({ search: "" });
   const [listDoctor, setListDoctor] = useState();
   const [listSpecialty, setListSpecialty] = useState();
-  const [all_Search,setAll_Search] = useState();
   const handleLogOut = () => {
     sessionStorage.clear();
     navigate("/");
   };
+  const {search} = searchAll;
   const navLinkStyle = ({ isActive }) => ({
     color: isActive ? "white" : "black",
     backgroundColor: isActive ? "#AB7442" : "white",
@@ -69,7 +69,7 @@ function Header() {
           <li className="nav-item active">
             <button
               type="button"
-              class=" nav-link btn btn-info btn-lg "
+              className=" nav-link btn btn-info btn-lg "
               onClick={() => navigate("/createDoctor")}
             >
               want to be a doctor
@@ -97,7 +97,7 @@ function Header() {
         <li>
           <button
             type="button"
-            class="btn btn-primary"
+            className="btn btn-primary"
             style={{ marginTop: "17px", marginLeft: "10px" }}
             onClick={handleLogOut}
           >
@@ -142,14 +142,18 @@ function Header() {
     };
     getSearchAll(newSearch.search)
       .then((res) => {
-        if (res.data.specialtyList == null && res.data.doctorList == null) {
-            toast("No result !!!", { position: toast.POSITION.TOP_CENTER });
-        }
         if (res.data.message == "not_found") {
           toast.warning("not found !!!", { position: toast.POSITION.TOP_CENTER });
+          setListDoctor(res.data.doctorList);
+          setListSpecialty(res.data.specialtyList);
+          setSearchAll({search:""});
+        } else {
+          setListDoctor(res.data.doctorList);
+          setListSpecialty(res.data.specialtyList);
+          setSearchAll({ search: "" });
         }
-        setListDoctor(res.data.doctorList);
-        setListSpecialty(res.data.specialtyList);
+        
+        
       })
       .catch((err) => {
         console.log(err);
@@ -192,7 +196,6 @@ function Header() {
   }
 
   const handleCloseSearch = () => {
-    // setAll_Search("");
     setListDoctor();
     setListSpecialty();
   };
@@ -242,7 +245,7 @@ function Header() {
                   placeholder="Search"
                   aria-label="Search"
                   name="search"
-                  // value={all_Search}
+                  value={search}
                   onChange={(e) => handleInputChange(e)}
                 />
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -253,8 +256,8 @@ function Header() {
                 <></>
               ) : (
                 <>
-                  <table className="table table-scroll table-striped">
-                    <tbody style={{ height: "200px", width: "500px", backgroundColor: "white" }}>
+                  <table className="table table-scroll table-striped" >
+                    <tbody style={{ height: "200px", width: "500px", backgroundColor: "white",zIndex:'1000' }}>
                       <tr>
                         <td>Doctor</td>
                       </tr>
@@ -272,7 +275,7 @@ function Header() {
               ) : (
                 <>
                   <table className="table table-scroll table-striped">
-                    <tbody style={{ height: "200px", width: "500px", backgroundColor: "white" }}>
+                    <tbody style={{ height: "200px", width: "500px", backgroundColor: "white",zIndex:'1000' }}>
                       <tr>
                         <td>Doctor</td>
                       </tr>
@@ -292,7 +295,7 @@ function Header() {
         </div>
         <div>
           <button className="go_home" onClick={() => handleHome()}>
-            <i class="fa-solid fa-arrow-up"></i>
+            <i className="fa-solid fa-arrow-up"></i>
           </button>
         </div>
       </nav>

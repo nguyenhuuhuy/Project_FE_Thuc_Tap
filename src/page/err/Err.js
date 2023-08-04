@@ -21,7 +21,7 @@ function Err404() {
             <div className="box animation animation--shake--vertical">4</div>
           </div>
         </div>
-        <div style={{marginBottom:'4%',marginTop:'2%',marginLeft:'40%'}} onClick={()=>{navigate("/")}}>
+        <div style={{marginBottom:'20%',marginTop:'2%',marginLeft:'40%'}} onClick={()=>{navigate("/")}}>
           <button className="custom-btn btn-2">Go Home</button>
         </div>
       </div>

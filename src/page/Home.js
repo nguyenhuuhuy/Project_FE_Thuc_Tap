@@ -52,7 +52,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <button type="button" class="btn btn-primary btn-lg btn-block" onClick={booking}>
+        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={booking}>
           Booking
         </button>
       </main>

@@ -9,8 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 function CreateBooking() {
   const navigate = useNavigate();
-  const [status, setStatus] = useState("");
   const [listSpecialty, setListSpecialty] = useState();
+  const [clickListDoctor, setClickListDoctor] = useState({
+    specialty:"",
+  });
   const [listDoctor, setListDoctor] = useState();
   const [listTimes, setListTime] = useState();
   const [oderTimeId, setOderTimeId] = useState({
@@ -38,15 +40,27 @@ function CreateBooking() {
       );
     });
   }
+
   const handleChange = (e) => {
-    getListDoctorBySpecialtyId(e.target.value)
-      .then((res) => {
-        setListDoctor(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setClickListDoctor({ ...clickListDoctor, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   };
+
+  const handleRenderDoctor = ()=>{
+    if (clickListDoctor.specialty == "DEFAULT") {
+      console.log(1);
+    } else {
+      getListDoctorBySpecialtyId(clickListDoctor.specialty)
+        .then((res) => {
+          setListDoctor(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+
+
   let renderListDoctorbySpecialtyId = null;
   if (listDoctor == undefined) {
     renderListDoctorbySpecialtyId = null;
@@ -60,13 +74,21 @@ function CreateBooking() {
     });
   }
   const handleChangeDoctor = (e) => {
-    getListOderTimesByDoctorId(e.target.value).then((res) => {
-      if (res.data.message == "not_found") {
-        alert("no empty calendar!!!");
-      } else {
-        setListTime(res.data);
-      }
-    });
+    if (e.target.value == "DEFAULT") {
+      console.log(1);
+    } else {
+      getListOderTimesByDoctorId(e.target.value).then((res) => {
+        if (res.data.message == "not_found") {
+          toast.warning("No empty calendar!!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          setListTime();
+        } else {
+          setListTime(res.data);
+        }
+      });
+    }
+    
   };
   let renderListTimes = null;
   if (listTimes == undefined) {
@@ -107,32 +129,30 @@ function CreateBooking() {
       })
       .catch((err) => {
         console.log(err);
-        if (err.code == "ERR_NETWORK") {
-          setStatus(err.code);
-        }
       });
   };
   return (
     <>
       <div className="col-12" style={{ paddingTop: "10%" }}>
         <div className="row" style={{ justifyContent: "center" }}>
-          <div className="col-6" style={{ textAlign: "center" }}>
+          <div className="col-6">
             <form
               onSubmit={(e) => {
                 handleSubmit(e);
               }}
             >
-              <h2>Booking</h2>
+              <h2 style={{ textAlign: "center" }}>Booking</h2>
               <div className="form-group">
-                <label htmlFor="exampleFormControlSelect1" >Specialty</label>
+                <label htmlFor="exampleFormControlSelect1">Specialty</label>
                 <select
                   className="form-control"
                   id="exampleFormControlSelect1"
                   name="specialty"
+                  defaultValue={"DEFAULT"}
                   onChange={(e) => handleChange(e)}
                   required
                 >
-                  <option selected disabled={"disabled"} value={""}>
+                  <option  disabled={"disabled"} value="DEFAULT">
                     Open this select specialty
                   </option>
                   {renderListSpecialty}
@@ -145,10 +165,12 @@ function CreateBooking() {
                   className="form-control"
                   id="exampleFormControlSelect2"
                   name="idTimes"
+                  defaultValue={"DEFAULT"}
                   onChange={(e) => handleChangeDoctor(e)}
+                  onClick={() => handleRenderDoctor()}
                   required
                 >
-                  <option selected disabled={"disabled"} value={""}>
+                  <option  value="DEFAULT">
                     Open this select Doctor
                   </option>
                   {renderListDoctorbySpecialtyId}
@@ -157,13 +179,14 @@ function CreateBooking() {
               <label htmlFor="exampleFormControlSelect2">Times</label>
               <div className="form-group">
                 <select
-                  class="form-select form-select-sm"
+                  className="form-select form-select-sm"
                   aria-label=".form-select-sm example"
                   name="id"
                   onChange={(e) => handleChangeTimesId(e)}
+                  defaultValue={"DEFAULT"}
                   required
                 >
-                  <option disabled={"disabled"} value={""} selected>
+                  <option disabled={"disabled"} value="DEFAULT" >
                     Open this select menu
                   </option>
                   {renderListTimes}

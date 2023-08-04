@@ -29,7 +29,9 @@ function DetailDoctor() {
   function dataTime() {
     getListTimeByDoctorId(id).then((res) => {
       if (res.data.message == "not_found") {
-        alert("list booking none");
+         toast.warning("List booking none!!!!", {
+           position: toast.POSITION.TOP_CENTER,
+         });
       } else {
         setListTimeOder(res.data);
       }
@@ -149,7 +151,7 @@ function DetailDoctor() {
                     {e.booked == false ? (
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={() => handleDetail(e.id)}
                       >
                         Order
@@ -183,7 +185,7 @@ function DetailDoctor() {
         </div>
         <button
           type="submit"
-          class="btn btn-success btn-lg"
+          className="btn btn-success btn-lg"
           onClick={addNewBooking}
         >
           Booking

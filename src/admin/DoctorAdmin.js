@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./style/doctorAdmin.css";
 import { getDetailDoctorById, getListDoctor, getSearchDoctorByName, putActiceDoctor, putBlockDoctor } from "../service/doctorService";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DoctorAdmin() {
   const [listDoctor, setListDoctor] = useState();
@@ -31,11 +33,11 @@ function DoctorAdmin() {
           <td>
             {e.user.status == false ? (
               <>
-                <i class="fa-solid fa-lock-open"></i>
+                <i className="fa-solid fa-lock-open"></i>
               </>
             ) : (
               <>
-                <i class="fa-solid fa-lock"></i>
+                <i className="fa-solid fa-lock"></i>
               </>
             )}
           </td>
@@ -46,7 +48,7 @@ function DoctorAdmin() {
               <>
                 <button
                   type="button"
-                  class="btn btn-outline-primary"
+                  className="btn btn-outline-primary"
                   onClick={() => handleCreateDoctor(e.id, e.user.id)}
                 >
                   active Doctor
@@ -57,7 +59,7 @@ function DoctorAdmin() {
           <td>
             <button
               type="button"
-              class="btn btn-outline-primary"
+              className="btn btn-outline-primary"
               onClick={() => handleBlockDoctor(e.id, e.user.id)}
             >
               Block
@@ -74,7 +76,9 @@ function DoctorAdmin() {
       userId: userId,
     };
     putActiceDoctor(activeDoctor).then((res) => {
-      alert("active doctor success !!!");
+      toast("active doctor success !!!!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       listDoctorData();
     });
   };
@@ -101,7 +105,7 @@ function DoctorAdmin() {
       setDetailDoctorById(res.data);
     })
   }
-  console.log(detailDoctorById);
+
   let rederDetailDoctor = "";
   if (detailDoctorById == undefined) {
       rederDetailDoctor = "";
@@ -192,11 +196,14 @@ const { name} = searchDoctor;
     getSearchDoctorByName(search.name)
     .then((res)=>{
       if (res.data.message == "not_found") {
-        alert("doctor name exited")
+        toast("doctor name exited !!!!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
         listDoctorData();
       } else{
       setListDoctor(res.data);
       }
+      setSearchDoctor({name:""})
     })
     .catch((err)=>{
         listDoctorData();
@@ -205,7 +212,10 @@ const { name} = searchDoctor;
   return (
     <>
       {rederDetailDoctor}
-      <div className="col-xs-8 col-xs-offset-2 well" style={{marginBottom:'20%', marginTop:'10%' }}>
+      <div
+        className="col-xs-8 col-xs-offset-2 well"
+        style={{ marginBottom: "20%", marginTop: "10%" }}
+      >
         <form
           className="form-inline my-2 my-lg-0"
           onSubmit={(e) => {
@@ -239,6 +249,7 @@ const { name} = searchDoctor;
           </thead>
           <tbody>{element}</tbody>
         </table>
+        <ToastContainer transition={Zoom} />
       </div>
     </>
   );

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style/specialtyAdmin.css";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   getDetailSpecialtyById,
   getListSpecialtyAdmin,
@@ -45,7 +47,7 @@ function SpecialtyAdmin() {
           <td>{index + 1}</td>
           <td>{e.name}</td>
           <td>
-            <button type="button" class="btn btn-outline-primary" onClick={() => handleEdit(e.id)}>
+            <button type="button" className="btn btn-outline-primary" onClick={() => handleEdit(e.id)}>
               edit
             </button>
           </td>
@@ -77,14 +79,19 @@ function SpecialtyAdmin() {
     postSpecialty(newSpecialty)
       .then((res) => {
         if (res.data.message == "name_existed") {
-          alert("specialty name existed !!!!");
+          toast.error("specialty name existed !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         } else {
           dataListSpecialty();
           setCreateSpecialty({
             name: "",
           });
           setActive(!active);
-          alert("Create success !!!!");
+          toast("Create success !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          
         }
       })
       .catch((err) => {
@@ -113,11 +120,17 @@ function SpecialtyAdmin() {
     putSpecialtyById(editSpecialty.id, edit)
       .then((res) => {
         if (res.data.message == "no_change") {
-          alert("the name has not changed!!!");
+          toast.warning("The name has not changed !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         } else if (res.data.message == "name_existed") {
-          alert("specialty name existed !!!!");
+          toast.error("specialty name existed !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         } else {
-          alert("update success!!!");
+          toast("update success !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           dataListSpecialty();
           setActiveEdit(!activeEdit);
         }
@@ -138,11 +151,14 @@ function SpecialtyAdmin() {
     getSearchSpecialty(search.name)
       .then((res) => {
         if (res.data.message == "not_found") {
-          alert("specialty name exited");
+          toast.warning("specialty name exited !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           dataListSpecialty();
         } else {
           setListSpecialty(res.data);
         }
+        setSearchSpecialty({searchName:""})
       })
       .catch((err) => {
         dataListSpecialty();
@@ -150,7 +166,7 @@ function SpecialtyAdmin() {
   };
   return (
     <>
-      <div className="col-12" style={{marginTop:'10%',marginBottom:'2%'}}>
+      <div className="col-12" style={{ marginTop: "10%", marginBottom: "2%" }}>
         <div className="col-xs-8 col-xs-offset-2 well" style={{ justifyContent: "center" }}>
           <form
             className="form-inline my-2 my-lg-0"
@@ -186,8 +202,8 @@ function SpecialtyAdmin() {
       </div>
       <button
         type="button"
-        class="btn btn-primary btn-lg btn-block"
-        style={{ marginTop: "100px",marginBottom:'5%' }}
+        className="btn btn-primary btn-lg btn-block"
+        style={{ marginTop: "100px", marginBottom: "5%" }}
         onClick={handleCreateOpen}
       >
         create specialty
@@ -196,7 +212,7 @@ function SpecialtyAdmin() {
         <div className="row" style={{ justifyContent: "center" }}>
           <div className="col-6">
             <i
-              class="fa-solid fa-xmark"
+              className="fa-solid fa-xmark"
               style={{ marginLeft: "100%", fontSize: "30px" }}
               onClick={handleClose}
             ></i>
@@ -233,7 +249,7 @@ function SpecialtyAdmin() {
         <div className="row" style={{ justifyContent: "center" }}>
           <div className="col-6">
             <i
-              class="fa-solid fa-xmark"
+              className="fa-solid fa-xmark"
               style={{ marginLeft: "100%", fontSize: "30px" }}
               onClick={handleCloseEdit}
             ></i>
@@ -262,6 +278,7 @@ function SpecialtyAdmin() {
             </form>
           </div>
         </div>
+        <ToastContainer transition={Zoom} />
       </div>
     </>
   );

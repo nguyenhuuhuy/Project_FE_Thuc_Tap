@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getListTimeByDoctorId } from "../../service/TimeSlotsService";
 import authHeader from "../../service/auth-header";
 import { oderBookings } from "../../service/bookingsService";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function TimeSlotByDoctorId() {
   const { id } = useParams();
@@ -24,7 +26,14 @@ function TimeSlotByDoctorId() {
   };
   function listTimesData() {
     getListTimeByDoctorId(id).then((res) => {
-      setListTimes(res.data);
+      if (res.data.message == "not_found") {
+        toast.warning("List booking none!!!!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setListTimes();
+      } else {
+        setListTimes(res.data);
+      }
     });
   }
   useEffect(() => {
@@ -33,7 +42,9 @@ function TimeSlotByDoctorId() {
 
   const handleDetail = (timesId) => {
     if (authHeader() == null) {
-      alert("You need to login !!! ");
+      toast.warning("You need to login !!!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       navigate("/login");
     }
     setTimeSlotId(timesId);
@@ -45,10 +56,14 @@ function TimeSlotByDoctorId() {
     oderBookings(timesSlotId, bookings)
       .then((res) => {
         if (res.data.message == "access_denied_role") {
-          alert("your are doctor or admin can't not bookings!!!!");
+          toast.warning("Your are doctor or admin can't not bookings!!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           setActive(!active);
         } else {
-          alert("Create Success!!!!");
+          toast("Create Success!!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           setActive(!active);
           listTimesData();
         }
@@ -57,10 +72,9 @@ function TimeSlotByDoctorId() {
         console.log(err);
       });
   };
-  console.log(status);
   return (
     <>
-      <div className="table-wrapper-scroll-y my-custom-scrollbar" style={{paddingTop:'10%'}}>
+      <div className="table-wrapper-scroll-y my-custom-scrollbar" style={{ paddingTop: "10%" }}>
         <table className="table table-bordered table-striped mb-0">
           <thead style={{ textAlign: "center" }}>
             <tr>
@@ -87,7 +101,7 @@ function TimeSlotByDoctorId() {
                     {e.booked == false ? (
                       <button
                         type="button"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                         onClick={() => handleDetail(e.id)}
                       >
                         Oder
@@ -119,10 +133,11 @@ function TimeSlotByDoctorId() {
             onChange={(e) => onInputChane(e)}
           />
         </div>
-        <button type="submit" class="btn btn-success btn-lg" onClick={addNewBooking}>
+        <button type="submit" className="btn btn-success btn-lg" onClick={addNewBooking}>
           Booking
         </button>
       </div>
+      <ToastContainer transition={Zoom} />
     </>
   );
 }

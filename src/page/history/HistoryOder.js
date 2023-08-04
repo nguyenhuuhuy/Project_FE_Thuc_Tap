@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../style/history.css";
-import {
-  getHistoryAccpetByUserId,
-  getHistoryByUserId,
-  getHistoryCancelByUserId,
-  putCancelByBookingId,
-} from "../../service/bookingsService";
-import { set } from "react-hook-form";
+import { getHistoryByUserId, putCancelByBookingId } from "../../service/bookingsService";
 
 function HistoryOder() {
   const [active, setActive] = useState();
@@ -20,7 +14,6 @@ function HistoryOder() {
   useEffect(() => {
     getListHistoryData();
   }, []);
-  // console.log(listHistory);
   const handleChangeList = (e) => {
     let check = e.target.id;
     setActive(check);
@@ -92,7 +85,6 @@ function HistoryOder() {
     });
   };
 
-  console.log(renderList);
 
   return (
     <>

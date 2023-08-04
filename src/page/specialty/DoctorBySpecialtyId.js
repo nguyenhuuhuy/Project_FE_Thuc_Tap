@@ -47,7 +47,7 @@ function DoctorBySpecialtyId() {
                     </thead>
                     <tbody>
                       {listDoctor == undefined ? (
-                        <> </>
+                        null
                       ) : (
                         listDoctor.map((e, index) => (
                           <tr key={index}>
@@ -70,7 +70,7 @@ function DoctorBySpecialtyId() {
                                   <>
                                     <button
                                       type="button"
-                                      class="btn btn-info"
+                                      className="btn btn-info"
                                       onClick={() => handleDetail(e.id)}
                                     >
                                       View

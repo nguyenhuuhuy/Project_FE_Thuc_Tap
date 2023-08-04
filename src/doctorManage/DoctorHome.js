@@ -211,14 +211,14 @@ const handleOpen = () => {
                             <>
                               <button
                                 type="submit"
-                                class="btn btn-success btn-lg"
+                                className="btn btn-success btn-lg"
                                 onClick={() => successOder(e.id)}
                               >
                                 Confirm
                               </button>
                               <button
                                 type="button"
-                                class="btn btn-danger btn-lg"
+                                className="btn btn-danger btn-lg"
                                 style={{ marginLeft: "10px" }}
                                 onClick={() => accessDenied(e.id, e.timeSlot.doctor.id)}
                               >
@@ -226,7 +226,7 @@ const handleOpen = () => {
                               </button>
                               <button
                                 type="button"
-                                class="btn btn-primary btn-lg"
+                                className="btn btn-primary btn-lg"
                                 style={{ marginLeft: "10px" }}
                                 onClick={close}
                               >
@@ -249,7 +249,13 @@ const handleOpen = () => {
   }
 
   const successOder = (id) => {
-    successBookingByTimeSlotId(id).then((res) => console.log(res.data));
+    successBookingByTimeSlotId(id).then((res) => {
+      if (res.data.message == "update_success") {
+        toast("update success !!!!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    });
     setActive(!active);
   };
   const accessDenied = (id, doctorId) => {
@@ -278,7 +284,9 @@ const handleOpen = () => {
     createNewTimeSlotByDoctor(newTimeSlot)
       .then((res) => {
         setStatus(!status);
-        alert("create success!!!");
+         toast("create success !!!!", {
+           position: toast.POSITION.TOP_CENTER,
+         });
         setTimeSlotExited({message:""});
       })
       .catch((err) => {
@@ -362,17 +370,12 @@ const handleOpen = () => {
       </div>
       {renderDetailOder}
 
-      {/* <div className="oderTime">
-                
-                
-                <button type="button" class="btn btn-primary btn-lg">Large button</button>
-            </div> */}
 
       <form className={status ? "oderTime" : "oderTime_close"}>
         <div className="form-group">
           <div className="col-12">
             <i
-              class="fa-solid fa-xmark"
+              className="fa-solid fa-xmark"
               id="close_oder"
               onClick={() => {
                 setStatus(!status);

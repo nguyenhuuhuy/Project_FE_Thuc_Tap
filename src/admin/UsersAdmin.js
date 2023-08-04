@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style/doctorAdmin.css";
-import { getDetailUserById, getListUser, getSearchUserByName, putBlockUserById,getPageUser } from "../service/userSrevices";
+import { getDetailUserById, getListUser, getSearchUserByName, putBlockUserById } from "../service/userSrevices";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function UsersAdmin() {
   const [listUsers, setListUser] = useState();
   const [detailUserById, setDetailUserById] = useState();
-  const [searchUser,setSearchUser] = useState({search: ""});
+  const [searchUser,setSearchUser] = useState({name: ""});
   function dataUser() {
     getListUser().then((res) => {
       setListUser(res.data);
@@ -32,18 +34,18 @@ function UsersAdmin() {
           <td>
             {e.status == false ? (
               <>
-                <i class="fa-solid fa-lock-open"></i>
+                <i className="fa-solid fa-lock-open"></i>
               </>
             ) : (
               <>
-                <i class="fa-solid fa-lock"></i>
+                <i className="fa-solid fa-lock"></i>
               </>
             )}
           </td>
           <td>
             <button
               type="button"
-              class="btn btn-outline-primary"
+              className="btn btn-outline-primary"
               onClick={() => handleBlockUser(e.id)}
             >
               Block
@@ -71,25 +73,31 @@ function UsersAdmin() {
         console.log(err);
       });
   };
+  const { name } = searchUser;
   const handleInputChange = (e) =>{
     setSearchUser({ ...searchUser, [e.target.name]: e.target.value });
   }
   const handleSubmit = (e) =>{
      e.preventDefault();
-     let searchUsers = {
-       search: searchUser.search,
+     let newSearchUsers = {
+       search: searchUser.name,
      };
-     getSearchUserByName(searchUsers.search)
+     getSearchUserByName(newSearchUsers.search)
      .then((res)=>{
         if (res.data.message == "not_found") {
-          alert("user not found !!!");
+          toast.warning("user not found !!!!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
           dataUser();
         } else {
           setListUser(res.data);
         }
+     setSearchUser({ name: "" });
      })
      .catch((err)=>{
-      alert("user not found !!!");
+      toast.warning("user not found !!!!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
       dataUser();
      })
   }
@@ -157,7 +165,7 @@ function UsersAdmin() {
                        <li>
                          <div className="row">
                            <div className="col-md-5 col-5">
-                             <i class="fa-solid fa-user"></i>
+                             <i className="fa-solid fa-user"></i>
                              <strong className="margin-10px-left text-green">Role:</strong>
                            </div>
                            <div className="col-md-7 col-7">
@@ -180,10 +188,10 @@ function UsersAdmin() {
   return (
     <>
       {rederDetailUser}
-      <div className="col-12" >
+      <div className="col-12">
         <div
           className="col-xs-8 col-xs-offset-2 well"
-          style={{ marginBottom: "50%",marginTop:'10%' }}
+          style={{ marginBottom: "50%", marginTop: "10%" }}
         >
           <form
             className="form-inline my-2 my-lg-0"
@@ -196,7 +204,8 @@ function UsersAdmin() {
               type="search"
               placeholder="Search"
               aria-label="Search"
-              name="search"
+              name="name"
+              value={name}
               onChange={(e) => handleInputChange(e)}
               required
             />
@@ -204,7 +213,7 @@ function UsersAdmin() {
               Search
             </button>
           </form>
-          <table className="table table-scroll table-striped" style={{marginBottom:'200px'}}>
+          <table className="table table-scroll table-striped" style={{ marginBottom: "200px" }}>
             <thead>
               <tr style={{ textAlign: "center" }}>
                 <th>#</th>
@@ -214,11 +223,10 @@ function UsersAdmin() {
                 <th>Edit</th>
               </tr>
             </thead>
-            <tbody style={{ height: "500px" }}>
-              {renderUser}
-              </tbody>
+            <tbody style={{ height: "500px" }}>{renderUser}</tbody>
           </table>
         </div>
+        <ToastContainer transition={Zoom} />
       </div>
     </>
   );
